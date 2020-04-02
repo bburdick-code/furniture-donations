@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-</head>
-<body>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<nav th:replace="fragments :: header"></nav>
+
+<p> Welcome to the SIUe International Hospitality Program (IHP) </p>
+<p> If you are a new student, please go to "Student Login" to create your profile </p>
+<p> If you would like to donate items to the organization, click "Donations"</p>
+<p> See below for more resources </p>
 
 </body>
 </html>

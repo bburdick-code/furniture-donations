@@ -2,6 +2,7 @@ package org.hospitalityprogram.furnituredonations.controllers;
 
 import org.hospitalityprogram.furnituredonations.data.UserRepository;
 import org.hospitalityprogram.furnituredonations.models.User;
+import org.hospitalityprogram.furnituredonations.models.UserType;
 import org.hospitalityprogram.furnituredonations.models.dto.LoginDTO;
 import org.hospitalityprogram.furnituredonations.models.dto.RegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,7 @@ public class AuthenticationController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "student/index";
+        return "redirect:/student";
     }
 
     @GetMapping("/login")
@@ -116,7 +117,15 @@ public class AuthenticationController {
         }
 
         setUserInSession(request.getSession(), theUser);
+        UserType userType = theUser.getUserType();
+        String userTypeString = userType.getDisplayName();
 
-        return "redirect:";
+        if (userTypeString == "Student") {
+            return "redirect:/student"; }
+        else if (userTypeString == "Admin") {
+            return "redirect:/admin";
+        }
+        else { return "redirect:"; }
+
     }
 }

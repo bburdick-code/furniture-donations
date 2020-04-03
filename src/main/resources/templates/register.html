@@ -6,10 +6,22 @@
 <header th:replace="fragments :: header"></header>
         <form method="post">
             <div class="form-group">
-                <label>Username
+                <label>Username (SIUe email)
                     <input class="form-control" th:field="${registrationDTO.username}"/>
                 </label>
                 <p class="error" th:errors="${registrationDTO.username}"></p>
+            </div>
+            <div class="form-group">
+                <label>Address
+                    <input class="form-control" th:field="${registrationDTO.userAddress}" />
+                </label>
+                <p class="error" th:errors="${registrationDTO.userAddress}"></p>
+            </div>
+            <div class="form-group">
+                <label>Phone
+                    <input class="form-control" th:field="${registrationDTO.userPhone}" />
+                </label>
+                <p class="error" th:errors="${registrationDTO.userPhone}"></p>
             </div>
             <div class="form-group">
                 <label>Password

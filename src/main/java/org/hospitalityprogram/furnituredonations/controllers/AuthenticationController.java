@@ -75,11 +75,11 @@ public class AuthenticationController {
             return "register";
         }
 
-        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserType());
+        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), registrationDTO.getUserType());
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        return "student/index";
     }
 
     @GetMapping("/login")

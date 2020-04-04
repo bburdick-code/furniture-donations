@@ -1,5 +1,6 @@
 package org.hospitalityprogram.furnituredonations.models;
 
+import org.hospitalityprogram.furnituredonations.models.enums.UserType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;

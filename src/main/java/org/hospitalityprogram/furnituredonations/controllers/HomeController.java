@@ -12,4 +12,10 @@ public class HomeController {
         model.addAttribute("title", "Homepage");
         return "index";
     }
+
+    @GetMapping("donate")
+    public String donate(Model model) {
+        model.addAttribute("title", "Donate Item");
+        return "donate";
+    }
 }

@@ -20,14 +20,14 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     @Autowired
     AuthenticationController authenticationController;
 
-    private static final List<String> whitelist = Arrays.asList("/", "/login", "/register", "/logout", "/donate");
+    private static final List<String> whitelist = Arrays.asList("/home", "/login", "/register", "/logout", "/donate");
 
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
                              Object handler) throws IOException {
 
-        // Don't require sign-in for whitelisted pages
+        // Don't require sign-in for whitelisted pages;
         if (isWhitelisted(request.getRequestURI())) {
             // returning true indicates that the request may proceed
             return true;
@@ -38,15 +38,23 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
 
         // The user is logged in
         if (user != null) {
-            return true;
+            if (user.getUserType().ordinal()==0 && request.getRequestURI().startsWith("/student")) {
+                return true;
+            } else if (user.getUserType().ordinal()==1 && request.getRequestURI().startsWith("/admin")) {
+                return true;
+            }
         }
-
         // The user is NOT logged in
-        response.sendRedirect("/login");
+        response.sendRedirect(request.getHeader("/login"));  //  "/login"
         return false;
     }
 
     private static boolean isWhitelisted(String path) {
+        // TODO: Remove system printouts
+        // System.out.println(path);
+        // System.out.println(path.length());
+        if (path.equals("/") || path.equals("")) {
+            return true; }
         for (String pathRoot : whitelist) {
             if (path.startsWith(pathRoot)) {
                 return true;

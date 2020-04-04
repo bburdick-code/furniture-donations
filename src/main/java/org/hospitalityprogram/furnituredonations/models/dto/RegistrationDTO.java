@@ -1,6 +1,6 @@
 package org.hospitalityprogram.furnituredonations.models.dto;
 
-import org.hospitalityprogram.furnituredonations.models.UserType;
+import org.hospitalityprogram.furnituredonations.models.enums.UserType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

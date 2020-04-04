@@ -2,7 +2,6 @@ package org.hospitalityprogram.furnituredonations.controllers;
 
 import org.hospitalityprogram.furnituredonations.data.UserRepository;
 import org.hospitalityprogram.furnituredonations.models.User;
-import org.hospitalityprogram.furnituredonations.models.UserType;
 import org.hospitalityprogram.furnituredonations.models.dto.LoginDTO;
 import org.hospitalityprogram.furnituredonations.models.dto.RegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,15 +116,21 @@ public class AuthenticationController {
         }
 
         setUserInSession(request.getSession(), theUser);
-        UserType userType = theUser.getUserType();
-        String userTypeString = userType.getDisplayName();
+        int userTypeOrd = theUser.getUserType().ordinal();
 
-        if (userTypeString == "Student") {
+        if (userTypeOrd == 0) {
             return "redirect:/student"; }
-        else if (userTypeString == "Admin") {
-            return "redirect:/admin";
-        }
-        else { return "redirect:"; }
+        else if (userTypeOrd == 1) {
+            return "redirect:/volunteer"; }
+        else if (userTypeOrd == 2) {
+            return "redirect:/admin"; }
+        else { return "redirect:/home"; }
 
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().invalidate();
+        return "redirect:/login";
     }
 }

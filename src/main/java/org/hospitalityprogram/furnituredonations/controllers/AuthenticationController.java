@@ -44,19 +44,19 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-    @GetMapping("/register")
+    @GetMapping("/student/register")
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegistrationDTO());
         model.addAttribute("title", "Register");
-        return "register";
+        return "student/register";
     }
 
-    @PostMapping("/register")
+    @PostMapping("/student/register")
     public String processRegistrationForm(@ModelAttribute @Valid RegistrationDTO registrationDTO,
                                           Errors errors, HttpServletRequest request, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
-            return "register";
+            return "student/register";
         }
 
         User existingUser = userRepository.findByUsername(registrationDTO.getUsername());
@@ -64,7 +64,7 @@ public class AuthenticationController {
         if (existingUser != null) {
             errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
             model.addAttribute("title", "Register");
-            return "register";
+            return "student/register";
         }
 
         String password = registrationDTO.getPassword();
@@ -72,7 +72,7 @@ public class AuthenticationController {
         if (!password.equals(verifyPassword)) {
             errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
             model.addAttribute("title", "Register");
-            return "register";
+            return "student/register";
         }
 
         User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), registrationDTO.getUserType());
@@ -80,6 +80,44 @@ public class AuthenticationController {
         setUserInSession(request.getSession(), newUser);
 
         return "redirect:/student";
+    }
+
+    @GetMapping("/volunteer/register")
+    public String displayVolunteerRegistrationForm(Model model) {
+        model.addAttribute(new RegistrationDTO());
+        model.addAttribute("title", "Register");
+        return "volunteer/register";
+    }
+
+    @PostMapping("/volunteer/register")
+    public String processVolunteerRegistrationForm(@ModelAttribute @Valid RegistrationDTO registrationDTO,
+                                          Errors errors, HttpServletRequest request, Model model) {
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Register");
+            return "volunteer/register";
+        }
+
+        User existingUser = userRepository.findByUsername(registrationDTO.getUsername());
+
+        if (existingUser != null) {
+            errors.rejectValue("username", "username.alreadyexists", "A user with that username already exists");
+            model.addAttribute("title", "Register");
+            return "volunteer/register";
+        }
+
+        String password = registrationDTO.getPassword();
+        String verifyPassword = registrationDTO.getVerifyPassword();
+        if (!password.equals(verifyPassword)) {
+            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
+            model.addAttribute("title", "Register");
+            return "volunteer/register";
+        }
+
+        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), registrationDTO.getUserType());
+        userRepository.save(newUser);
+        setUserInSession(request.getSession(), newUser);
+
+        return "redirect:/volunteer";
     }
 
     @GetMapping("/login")

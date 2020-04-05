@@ -1,10 +1,12 @@
 package org.hospitalityprogram.furnituredonations.models;
 
+import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class ItemCategory extends AbstractEntity {
 
     @NotBlank(message = "Item name is required")

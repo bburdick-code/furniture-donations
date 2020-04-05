@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<nav th:replace="fragments :: studentNav"></nav>
+
+<p> This is where Students view their profile </p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tr>
+        <td>First Name</td>
+        <td th:text="${studentProfile.firstName}"></td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td th:text="${studentProfile.lastName}"></td>
+    </tr>
+    <tr>
+        <td>Nickname</td>
+        <td th:text="${studentProfile.nickname}"></td>
+    </tr>
+    <tr>
+        <td>Personal Email</td>
+        <td th:text="${studentProfile.personalEmail}"></td>
+    </tr>
+    <tr>
+        <td>Country</td>
+        <td th:text="${studentProfile.country}"></td>
+    </tr>
+    <tr>
+        <td>Gender</td>
+        <td th:text="${studentProfile.gender}"></td>
+    </tr>
+    <tr>
+        <td>Marital Status</td>
+        <td th:text="${studentProfile.maritalStatus}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>

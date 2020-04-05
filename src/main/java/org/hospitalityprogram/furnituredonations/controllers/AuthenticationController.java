@@ -79,7 +79,7 @@ public class AuthenticationController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:/student";
+        return "redirect:/student/profile/create";
     }
 
     @GetMapping("/volunteer/register")
@@ -157,11 +157,11 @@ public class AuthenticationController {
         int userTypeOrd = theUser.getUserType().ordinal();
 
         if (userTypeOrd == 0) {
-            return "redirect:/student"; }
+            return "redirect:/student/profile"; }
         else if (userTypeOrd == 1) {
-            return "redirect:/volunteer"; }
+            return "redirect:/volunteer/profile"; }
         else if (userTypeOrd == 2) {
-            return "redirect:/admin"; }
+            return "redirect:/admin/profile"; }
         else { return "redirect:/home"; }
 
     }

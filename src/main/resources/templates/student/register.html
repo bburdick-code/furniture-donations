@@ -6,7 +6,7 @@
 <header th:replace="fragments :: header"></header>
         <form method="post">
             <div class="form-group">
-                <label>Username (SIUe email)
+                <label>Username (Student email, @siue.edu)
                     <input class="form-control" th:field="${registrationDTO.username}"/>
                 </label>
                 <p class="error" th:errors="${registrationDTO.username}"></p>

@@ -20,7 +20,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     @Autowired
     AuthenticationController authenticationController;
 
-    private static final List<String> whitelist = Arrays.asList("/home", "/login", "/register", "/logout", "/donate");
+    private static final List<String> whitelist = Arrays.asList("/home", "/login", "/student/register", "/volunteer/register", "/logout", "/donate");
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -40,7 +40,9 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
         if (user != null) {
             if (user.getUserType().ordinal()==0 && request.getRequestURI().startsWith("/student")) {
                 return true;
-            } else if (user.getUserType().ordinal()==1 && request.getRequestURI().startsWith("/admin")) {
+            } else if (user.getUserType().ordinal()==1 && request.getRequestURI().startsWith("/volunteer")) {
+                return true;
+            } else if (user.getUserType().ordinal()==2 && request.getRequestURI().startsWith("/admin")) {
                 return true;
             }
         }

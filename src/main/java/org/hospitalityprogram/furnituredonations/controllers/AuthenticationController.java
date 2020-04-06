@@ -79,7 +79,7 @@ public class AuthenticationController {
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:/student/profile/create";
+        return "redirect:/student/profile/edit";
     }
 
     @GetMapping("/volunteer/register")

@@ -10,37 +10,39 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th>Field</th>
+        <th>Value
+            <a href="/student/profile/edit" >Edit</a>
+        </th>
     </tr>
     </thead>
     <tr>
         <td>First Name</td>
-        <td th:text="${studentProfile.firstName}"></td>
+        <td th:text="${user.firstName}"></td>
     </tr>
     <tr>
         <td>Last Name</td>
-        <td th:text="${studentProfile.lastName}"></td>
+        <td th:text="${user.lastName}"></td>
     </tr>
     <tr>
         <td>Nickname</td>
-        <td th:text="${studentProfile.nickname}"></td>
+        <td th:text="${user.nickname}"></td>
     </tr>
     <tr>
         <td>Personal Email</td>
-        <td th:text="${studentProfile.personalEmail}"></td>
+        <td th:text="${user.personalEmail}"></td>
     </tr>
     <tr>
         <td>Country</td>
-        <td th:text="${studentProfile.country}"></td>
+        <td th:text="${user.country}"></td>
     </tr>
     <tr>
         <td>Gender</td>
-        <td th:text="${studentProfile.gender}"></td>
+        <td th:text="${user.gender}"></td>
     </tr>
     <tr>
         <td>Marital Status</td>
-        <td th:text="${studentProfile.maritalStatus}"></td>
+        <td th:text="${user.maritalStatus}"></td>
     </tr>
 </table>
 

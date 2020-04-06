@@ -2,6 +2,7 @@ package org.hospitalityprogram.furnituredonations.models;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +23,13 @@ public class StudentProfile extends AbstractEntity {
 
     private String maritalStatus;
 
+    @OneToOne
+    private User user;
+
     @ManyToMany
     private final List<Item> items = new ArrayList<>();
 
-    public StudentProfile(String firstName, String lastName, String nickname, String personalEmail, String country, String gender, String maritalStatus) {
+    public StudentProfile(String firstName, String lastName, String nickname, String personalEmail, String country, String gender, String maritalStatus, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickname = nickname;
@@ -33,6 +37,7 @@ public class StudentProfile extends AbstractEntity {
         this.country = country;
         this.gender = gender;
         this.maritalStatus = maritalStatus;
+        this.user = user;
     }
 
     public StudentProfile() {
@@ -68,4 +73,9 @@ public class StudentProfile extends AbstractEntity {
     public void setMaritalStatus(String maritalStatus) { this.maritalStatus = maritalStatus; }
 
     public List<Item> getItems() { return items; }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
+
 }

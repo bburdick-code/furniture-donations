@@ -3,6 +3,7 @@ package org.hospitalityprogram.furnituredonations.models;
 import org.hospitalityprogram.furnituredonations.models.enums.UserType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
@@ -41,7 +42,7 @@ public class User extends AbstractEntity {
 
     private String maritalStatus;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private final List<Item> items = new ArrayList<>();
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -101,6 +102,8 @@ public class User extends AbstractEntity {
     public void setMaritalStatus(String maritalStatus) { this.maritalStatus = maritalStatus; }
 
     public List<Item> getItems() { return items; }
+
+    public void addItem(Item item) {items.add(item);}
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);

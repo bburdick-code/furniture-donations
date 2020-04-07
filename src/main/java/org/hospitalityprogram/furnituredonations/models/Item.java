@@ -19,6 +19,22 @@ public class Item extends AbstractEntity {
     @ManyToMany(mappedBy = "items")
     private final List<User> users = new ArrayList<>();
 
+    public Item(ItemCategory itemCategory, ItemStatus itemStatus) {
+        this.itemCategory = itemCategory;
+        this.itemStatus = itemStatus;
+    }
 
+    public Item() {
 
+    }
+
+    public ItemCategory getItemCategory() { return itemCategory; }
+
+    public void setItemCategory(ItemCategory itemCategory) { this.itemCategory = itemCategory; }
+
+    public ItemStatus getItemStatus() { return itemStatus; }
+
+    public void setItemStatus(ItemStatus itemStatus) { this.itemStatus = itemStatus; }
+
+    public List<User> getUsers() { return users; }
 }

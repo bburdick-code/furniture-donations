@@ -1,7 +1,12 @@
 package org.hospitalityprogram.furnituredonations.controllers;
 
+import org.hospitalityprogram.furnituredonations.data.ItemCategoryRepository;
 import org.hospitalityprogram.furnituredonations.data.UserRepository;
+import org.hospitalityprogram.furnituredonations.models.Item;
+import org.hospitalityprogram.furnituredonations.models.ItemCategory;
 import org.hospitalityprogram.furnituredonations.models.User;
+import org.hospitalityprogram.furnituredonations.models.dto.UserItemDTO;
+import org.hospitalityprogram.furnituredonations.models.enums.ItemStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,22 +23,13 @@ public class StudentController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ItemCategoryRepository itemCategoryRepository;
+
     @GetMapping
     public String index(Model model) {
         model.addAttribute("title", "Nothing Here");
         return "student/index";
-    }
-
-    @GetMapping("items")
-    public String items(Model model) {
-        model.addAttribute("title", "Requested Items");
-        return "student/items/index";
-    }
-
-    @GetMapping("settings")
-    public String settings(Model model) {
-        model.addAttribute("title", "Settings");
-        return "student/settings";
     }
 
     @GetMapping("profile")
@@ -54,21 +50,6 @@ public class StudentController {
 
     @PostMapping("profile/edit")
     public String processEditProfile(@ModelAttribute User user, @RequestParam int id, HttpSession session, Errors errors, Model model) {
-//        System.out.println("The user id for this UPDATE is: " + user.getId());
-//        System.out.println("The First Name is " + user.getFirstName());
-
-//        @RequestParam int userId,
-//        @RequestParam String userAddress, @RequestParam String userPhone,
-//        @RequestParam String firstName, @RequestParam String lastName,
-//        @RequestParam String nickname, @RequestParam String personalEmail,
-//        @RequestParam String country, @RequestParam String gender,
-//        @RequestParam String maritalStatus,
-
-//        if(errors.hasErrors()){
-//            System.out.println("had errors");
-//            model.addAttribute("title", "Edit Again");
-//            return "student/profile/edit";
-//        }
         Optional<User> resultOb = userRepository.findById(id);
         User result = resultOb.get();
 
@@ -85,6 +66,48 @@ public class StudentController {
         userRepository.save(result);
 
         return "redirect:/student/profile";
+    }
+
+    @GetMapping("items")
+    public String items(Model model) {
+        model.addAttribute("title", "Requested Items");
+        return "student/items/index";
+    }
+
+    @GetMapping("items/edit")
+    public String renderEditItemsForm(HttpSession session, Model model) {
+        Optional<User> resultOb = userRepository.findById((int)session.getAttribute("user"));
+        User result = resultOb.get();
+        model.addAttribute("title", "Change item requests");
+        model.addAttribute("items", itemCategoryRepository.findAll());
+        UserItemDTO userItem = new UserItemDTO();
+        userItem.setUser(result);
+        model.addAttribute("userItem", userItem);
+
+        return "student/items/edit";
+    }
+
+    @PostMapping("items/edit")
+    public String processEditItemsForm(@RequestParam(required = false) int[] itemIds, HttpSession session, UserItemDTO userItem) {
+
+        Optional<User> userResultOb = userRepository.findById((int)session.getAttribute("user"));
+        User user = userResultOb.get();
+
+        if (itemIds != null) {
+            for (int id : itemIds) {
+                Optional<ItemCategory> resultOb = itemCategoryRepository.findById(id);
+                Item item = new Item(resultOb.get(), ItemStatus.REQUESTED);
+                user.addItem(item);
+            }
+            userRepository.save(user);
+        }
+        return "redirect:/student/items";
+    }
+
+    @GetMapping("settings")
+    public String settings(Model model) {
+        model.addAttribute("title", "Settings");
+        return "student/settings";
     }
 
 }

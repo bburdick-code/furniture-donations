@@ -17,7 +17,7 @@ public class Item extends AbstractEntity {
     private ItemStatus itemStatus;
 
     @ManyToMany(mappedBy = "items")
-    private final List<StudentProfile> studentProfiles = new ArrayList<>();
+    private final List<User> users = new ArrayList<>();
 
 
 

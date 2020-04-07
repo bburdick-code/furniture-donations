@@ -20,9 +20,7 @@ public class RegistrationDTO extends LoginDTO {
     private String userPhone;
 
     @NotNull
-    private UserType userType = UserType.valueOf("STUDENT");
-
-
+    private UserType userType;
 
     private String verifyPassword;
 

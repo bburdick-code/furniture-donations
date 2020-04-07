@@ -4,6 +4,7 @@ import org.hospitalityprogram.furnituredonations.data.UserRepository;
 import org.hospitalityprogram.furnituredonations.models.User;
 import org.hospitalityprogram.furnituredonations.models.dto.LoginDTO;
 import org.hospitalityprogram.furnituredonations.models.dto.RegistrationDTO;
+import org.hospitalityprogram.furnituredonations.models.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -75,7 +76,7 @@ public class AuthenticationController {
             return "student/register";
         }
 
-        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), registrationDTO.getUserType());
+        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.valueOf("Student"));
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
@@ -113,7 +114,7 @@ public class AuthenticationController {
             return "volunteer/register";
         }
 
-        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), registrationDTO.getUserType());
+        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.valueOf("Volunteer"));
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 

@@ -27,7 +27,7 @@ public class StudentController {
     @GetMapping("items")
     public String items(Model model) {
         model.addAttribute("title", "Requested Items");
-        return "student/items";
+        return "student/items/index";
     }
 
     @GetMapping("settings")

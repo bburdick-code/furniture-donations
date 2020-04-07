@@ -4,7 +4,10 @@ import org.hospitalityprogram.furnituredonations.models.enums.UserType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User extends AbstractEntity {
@@ -37,6 +40,9 @@ public class User extends AbstractEntity {
     private String gender;
 
     private String maritalStatus;
+
+    @ManyToMany
+    private final List<Item> items = new ArrayList<>();
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -93,6 +99,8 @@ public class User extends AbstractEntity {
     public String getMaritalStatus() { return maritalStatus; }
 
     public void setMaritalStatus(String maritalStatus) { this.maritalStatus = maritalStatus; }
+
+    public List<Item> getItems() { return items; }
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);

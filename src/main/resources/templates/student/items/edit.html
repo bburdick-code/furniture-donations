@@ -5,17 +5,21 @@
 
 <nav th:replace="fragments :: studentNav"></nav>
 
-<p> This is where Students select there items </p>
+<p> This is where Students select their items </p>
 
 <form method="post">
 
-    <th:block th:each="item : ${items}">
-        <div class="form-group">
-            <label>
-                <span th:text="${item.name}"></span>
-                <input type="checkbox" name="itemIds" th:value="${item.id}" class="form-control">
-            </label>
-        </div>
+    <th:block th:each="item : ${items}" >
+    <div class="form-group">
+        <label th:text="'Item ' + ${item.itemPriority} + '  '">        </label>
+            <select th:field="${item.itemCategory}">
+                <option value="0"></option>
+                <option th:each="itemCategory : ${categories}"
+                        th:value="${itemCategory.id}"
+                        th:text="${itemCategory.name}"></option>
+            </select>
+        <p class="error" th:errors="${item.itemCategory}"></p>
+    </div>
     </th:block>
 
 

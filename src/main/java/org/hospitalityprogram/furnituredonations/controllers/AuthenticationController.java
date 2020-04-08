@@ -76,7 +76,9 @@ public class AuthenticationController {
             return "student/register";
         }
 
-        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.valueOf("Student"));
+        System.out.println("About to submit the registration stuff");
+
+        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.STUDENT);
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 
@@ -114,7 +116,7 @@ public class AuthenticationController {
             return "volunteer/register";
         }
 
-        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.valueOf("Volunteer"));
+        User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.VOLUNTEER);
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);
 

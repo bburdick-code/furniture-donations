@@ -103,6 +103,8 @@ public class User extends AbstractEntity {
 
     public List<Item> getItems() { return items; }
 
+    public void removeAllItems() { items.clear(); }
+
     public void addItem(Item item) {items.add(item);}
 
     public boolean isMatchingPassword(String password) {

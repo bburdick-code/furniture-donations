@@ -5,7 +5,7 @@
 
 <nav th:replace="fragments :: adminNav"></nav>
 
-<p th:unless="${itemCategories} and ${itemCategories.size()}">No Categories</p>
+<p th:unless="${categories} and ${categories.size()}">No Categories</p>
 <p><a href="/admin/actions/itemCategory/add">Add an Item Category</a></p>
 
 <table class="table table-striped">

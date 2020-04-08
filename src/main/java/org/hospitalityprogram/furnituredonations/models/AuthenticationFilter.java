@@ -47,7 +47,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
             }
         }
         // The user is NOT logged in
-        response.sendRedirect(request.getHeader("/login"));  //  "/login"
+        response.sendRedirect("/login");  //  "/login"
         return false;
     }
 

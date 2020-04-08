@@ -1,8 +1,5 @@
 package org.hospitalityprogram.furnituredonations.models.dto;
 
-import org.hospitalityprogram.furnituredonations.models.enums.UserType;
-
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class RegistrationDTO extends LoginDTO {
@@ -19,8 +16,8 @@ public class RegistrationDTO extends LoginDTO {
     @Size(min = 3, max = 50, message = "Invalid username. Length 3-20")
     private String userPhone;
 
-    @NotNull
-    private UserType userType;
+//    @NotNull
+//    private UserType userType;
 
     private String verifyPassword;
 
@@ -32,9 +29,9 @@ public class RegistrationDTO extends LoginDTO {
 
     public void setUserPhone(String userPhone) { this.userPhone = userPhone; }
 
-    public UserType getUserType() { return userType; }
-
-    public void setUserType(UserType userType) { this.userType = userType; }
+//    public UserType getUserType() { return userType; }
+//
+//    public void setUserType(UserType userType) { this.userType = userType; }
 
     public String getVerifyPassword() {
         return verifyPassword;

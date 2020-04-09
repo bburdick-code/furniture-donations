@@ -12,7 +12,7 @@
 <form method="post">
     <th:block th:each="item : ${items}" >
         <div class="form-group">
-            <label th:text="'Item ' + ${item.itemPriority} + '  '">        </label>
+            <label th:text="'Item #' + ${item.itemPriority} + '  '">        </label>
             <select th:name="itemCategoryArray">
 
                 <option value="0"></option>
@@ -37,6 +37,8 @@
 
 
 </form>
+
+<p>If you need to request a special item that does not appear on the list, please email [admin@ihp.com]</p>
 
 </body>
 </html>

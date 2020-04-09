@@ -16,6 +16,9 @@ public class ItemCategory extends AbstractEntity {
     @OneToMany(mappedBy = "itemCategory")
     private final List<Item> items = new ArrayList<>();
 
+    @OneToMany(mappedBy = "itemCategory")
+    private final List<Donation> donations = new ArrayList<>();
+
     public ItemCategory(@NotBlank(message = "Item name is required") String name) {
         this.name = name;
     }
@@ -29,6 +32,8 @@ public class ItemCategory extends AbstractEntity {
     public void setName(String name) { this.name = name; }
 
     public List<Item> getItems() { return items; }
+
+    public List<Donation> getDonations() { return donations; }
 
     @Override
     public boolean equals(Object o) {

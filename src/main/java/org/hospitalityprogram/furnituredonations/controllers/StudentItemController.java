@@ -16,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("student/items")
@@ -42,7 +39,10 @@ public class StudentItemController {
     public String items(HttpSession session, Model model) {
         Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
         User user = result.get();
+
         List<Item> currentItems = user.getItems();
+        currentItems.sort(Comparator.comparingInt(Item::getItemPriority));
+
         model.addAttribute("title", "Requested Items");
         model.addAttribute("items", currentItems);
         return "student/items/index";
@@ -78,6 +78,7 @@ public class StudentItemController {
         User user = result.get();
 
         List<Item> currentItems = user.getItems();
+        currentItems.sort(Comparator.comparingInt(Item::getItemPriority));
         List<Item> newItems = new ArrayList<>();
 
         if (itemCategoryArray != null) {
@@ -113,9 +114,11 @@ public class StudentItemController {
                 }
             }
             for (int i = 0; i < itemAllowance; i++) {
-                for (Item curItem : currentItems) {
+                Iterator<Item> itr = currentItems.iterator();
+                while (itr.hasNext()) {
+                    Item curItem = itr.next();
                     if (itemCategoryArray[i] == 0 && curItem.getItemPriority() == i+1) {
-                        user.removeItem(curItem);
+                        itr.remove();
                         itemRepository.delete(curItem);
                     }
                 }
@@ -131,6 +134,7 @@ public class StudentItemController {
         Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
         User user = result.get();
         List<Item> currentItems = user.getItems();
+        currentItems.sort(Comparator.comparingInt(Item::getItemPriority));
         List<Item> items = new ArrayList<>();
 
         for (int i = 1; i <= itemAllowance; i++) {

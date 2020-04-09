@@ -36,7 +36,8 @@ public class ItemCategory extends AbstractEntity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ItemCategory that = (ItemCategory) o;
-        return Objects.equals(name, that.name);
+        return name.equals(that.name);
+        // return Objects.equals(name, that.name);
     }
 
     @Override

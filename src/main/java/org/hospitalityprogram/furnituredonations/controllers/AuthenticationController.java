@@ -76,8 +76,6 @@ public class AuthenticationController {
             return "student/register";
         }
 
-        System.out.println("About to submit the registration stuff");
-
         User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.STUDENT);
         userRepository.save(newUser);
         setUserInSession(request.getSession(), newUser);

@@ -2,13 +2,9 @@ package org.hospitalityprogram.furnituredonations.models;
 
 import org.hospitalityprogram.furnituredonations.models.enums.ItemStatus;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,14 +19,22 @@ public class Item extends AbstractEntity {
 
     private Date itemRequestDate;
 
-    @ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
-    private final List<User> users = new ArrayList<>();
+    @ManyToOne
+    private User itemUser;
 
-    public Item(ItemCategory itemCategory, ItemStatus itemStatus, int itemPriority, Date itemRequestDate) {
+    public Item(ItemCategory itemCategory, ItemStatus itemStatus, int itemPriority, Date itemRequestDate, User itemUser) {
         this.itemCategory = itemCategory;
         this.itemStatus = itemStatus;
         this.itemPriority = itemPriority;
         this.itemRequestDate = itemRequestDate;
+        this.itemUser = itemUser;
+    }
+
+    public Item(Item other) {
+        this.itemCategory = other.itemCategory;
+        this.itemStatus = other.itemStatus;
+        this.itemPriority = other.itemPriority;
+        this.itemRequestDate = other.itemRequestDate;
     }
 
     public Item() {
@@ -49,7 +53,9 @@ public class Item extends AbstractEntity {
 
     public void setItemPriority(int itemPriority) { this.itemPriority = itemPriority; }
 
-    public List<User> getUsers() { return users; }
+    public Date getItemRequestDate() { return itemRequestDate; }
+
+    public void setItemRequestDate(Date itemRequestDate) { this.itemRequestDate = itemRequestDate; }
 
     @Override
     public boolean equals(Object o) {

@@ -5,7 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class User extends AbstractEntity {
 
     private String maritalStatus;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private final List<Item> items = new ArrayList<>();
 
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -106,6 +106,8 @@ public class User extends AbstractEntity {
     public void removeAllItems() { items.clear(); }
 
     public void addItem(Item item) {items.add(item);}
+
+    public void removeItem (Item item) {items.remove(item);}
 
     public boolean isMatchingPassword(String password) {
         return encoder.matches(password, pwHash);

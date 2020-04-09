@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("admin/actions/itemCategory")
-public class ItemCategoryController {
+public class AdminItemCategoryController {
 
     @Autowired
     private ItemCategoryRepository itemCategoryRepository;

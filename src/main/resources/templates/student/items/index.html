@@ -8,5 +8,23 @@
 <p> This is where Students view items and status </p>
 <p> <a href="/student/items/edit">Edit Selected Items</a></p>
 
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Priority</th>
+        <th>Item</th>
+        <th>Status</th>
+    </tr>
+    </thead>
+
+    <th:block th:each="item : ${items}">
+        <tr>
+            <td th:text="'Item #' + ${item.itemPriority}"></td>
+            <td th:text="${item.itemCategory.name}"></td>
+            <td th:text="${item.itemStatus}"></td>
+        </tr>
+    </th:block>
+</table>
+
 </body>
 </html>

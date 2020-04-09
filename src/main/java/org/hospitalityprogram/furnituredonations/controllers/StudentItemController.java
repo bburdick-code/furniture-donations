@@ -39,8 +39,12 @@ public class StudentItemController {
     ItemCategoryRepository itemCategoryRepository;
 
     @GetMapping
-    public String items(Model model) {
+    public String items(HttpSession session, Model model) {
+        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
+        User user = result.get();
+        List<Item> currentItems = user.getItems();
         model.addAttribute("title", "Requested Items");
+        model.addAttribute("items", currentItems);
         return "student/items/index";
     }
 
@@ -57,11 +61,13 @@ public class StudentItemController {
 
         if (noDuplicates){
             for (int i = 0; i < itemAllowance ; i++) {
-                for (int j = i+1; j < itemAllowance ; j++) {
-                    if (itemCategoryArray[i] == itemCategoryArray[j]) {
-                        model = PrepareEditForm(session, model);
-                        model.addAttribute("errMsg", "Select only one of each item type");
-                        return "student/items/edit";
+                if(itemCategoryArray[i] != 0) {
+                    for (int j = i + 1; j < itemAllowance; j++) {
+                        if (itemCategoryArray[i] == itemCategoryArray[j]) {
+                            model = PrepareEditForm(session, model);
+                            model.addAttribute("errMsg", "Select only one of each item type");
+                            return "student/items/edit";
+                        }
                     }
                 }
             }

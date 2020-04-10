@@ -2,14 +2,18 @@ package org.hospitalityprogram.furnituredonations.controllers;
 
 import org.hospitalityprogram.furnituredonations.data.DonationBatchRepository;
 import org.hospitalityprogram.furnituredonations.data.ItemCategoryRepository;
+import org.hospitalityprogram.furnituredonations.models.Donation;
 import org.hospitalityprogram.furnituredonations.models.DonationBatch;
+import org.hospitalityprogram.furnituredonations.models.ItemCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.Date;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("donate")
@@ -30,7 +34,7 @@ public class DonationController {
     }
 
     @PostMapping
-    public String processDonation(@RequestParam(required = false) int[] itemCategoryArray, @RequestParam(required = false) String [] itemDescriptionArray, Model model) {
+    public String processDonation(@ModelAttribute @Valid DonationBatch donationBatch, Errors errors, @RequestParam(required = false) int[] itemCategoryArray, @RequestParam(required = false) String [] itemDescriptionArray, Model model) {
 
         for (int i : itemCategoryArray) {
             System.out.println(i);
@@ -39,6 +43,35 @@ public class DonationController {
             System.out.println(s);
         }
 
+        if(errors.hasErrors()) {
+            model.addAttribute("title", "Donation");
+            return "donate/index";
+        }
+
+        int length = itemCategoryArray.length;
+        boolean found = false;
+        for (int i=0; i < length; i++) {
+            if (itemCategoryArray[i] != 0) {
+                found = true;
+            }
+        }
+
+        if(!found) {
+            model.addAttribute("title", "Donation");
+            model.addAttribute("itemError", "A donation must include at least 1 item");
+            return "donate/index";
+        }
+
+        for (int i =0; i < length ; i++) {
+            if (itemCategoryArray[i] != 0 ) {
+                Optional<ItemCategory> result = itemCategoryRepository.findById(itemCategoryArray[i]);
+                ItemCategory itemCategory = result.get();
+                Donation donation = new Donation(itemCategory, itemDescriptionArray[i], donationBatch);
+                donationBatch.addDonation(donation);
+            }
+        }
+        donationBatch.setDonorPostedDate(new Date());
+        donationBatchRepository.save(donationBatch);
 
         return "redirect:/donate/success";
     }

@@ -21,11 +21,13 @@
                 <label>Donor name
                     <input class="form-control" th:field="*{donationBatch.donorName}">
                 </label>
+                <p class="error" th:errors="${donationBatch.donorName}"></p>
             </td>
             <td>
                 <label>Email
                     <input class="form-control" th:field="*{donationBatch.donorEmail}">
                 </label>
+                <p class="error" th:errors="${donationBatch.donorEmail}"></p>
             </td>
         </tr>
         <tr>
@@ -33,16 +35,19 @@
                 <label>Phone #
                     <input class="form-control" th:field="*{donationBatch.donorPhone}">
                 </label>
+                <p class="error" th:errors="${donationBatch.donorPhone}"></p>
             </td>
             <td>
                 <label>Address of items
                     <input class="form-control" th:field="*{donationBatch.donorAddress}">
                 </label>
+                <p class="error" th:errors="${donationBatch.donorAddress}"></p>
             </td>
         </tr>
         </tbody>
     </table>
 
+    <p class="error" th:text="${itemError}"></p>
 
     <table class="table table-striped" >
         <tbody id="itemsTable">
@@ -62,8 +67,8 @@
                 </label>
             </td>
             <td>
-                <label>Description
-                    <input class="form-control" name="itemDescriptionArray" type="text">
+                <label>Dimensions/Description
+                    <input class="form-control" name="itemDescriptionArray" type="text" placeholder="ie. L x W X H ">
                 </label>
             </td>
         </tr>

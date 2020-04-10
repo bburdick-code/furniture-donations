@@ -3,6 +3,7 @@ package org.hospitalityprogram.furnituredonations.models;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,12 +11,16 @@ import java.util.List;
 @Entity
 public class DonationBatch extends AbstractEntity{
 
+    @NotBlank(message = "Required field")
     private String donorName;
 
+    @NotBlank(message = "Required field")
     private String donorEmail;
 
+    @NotBlank(message = "Required field")
     private String donorAddress;
 
+    @NotBlank(message = "Required field")
     private String donorPhone;
 
     private Date donorPostedDate;

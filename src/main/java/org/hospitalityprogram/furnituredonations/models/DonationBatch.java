@@ -10,6 +10,8 @@ import java.util.List;
 @Entity
 public class DonationBatch extends AbstractEntity{
 
+    private String donorName;
+
     private String donorEmail;
 
     private String donorAddress;
@@ -21,7 +23,8 @@ public class DonationBatch extends AbstractEntity{
     @OneToMany(cascade = CascadeType.ALL)
     private final List<Donation> donations = new ArrayList<>();
 
-    public DonationBatch(String donorEmail, String donorAddress, String donorPhone, Date donorPostedDate) {
+    public DonationBatch(String donorName, String donorEmail, String donorAddress, String donorPhone, Date donorPostedDate) {
+        this.donorName = donorName;
         this.donorEmail = donorEmail;
         this.donorAddress = donorAddress;
         this.donorPhone = donorPhone;
@@ -31,6 +34,10 @@ public class DonationBatch extends AbstractEntity{
     public DonationBatch() {
 
     }
+
+    public String getDonorName() { return donorName; }
+
+    public void setDonorName(String donorName) { this.donorName = donorName; }
 
     public String getDonorEmail() { return donorEmail; }
 
@@ -43,6 +50,10 @@ public class DonationBatch extends AbstractEntity{
     public String getDonorPhone() { return donorPhone; }
 
     public void setDonorPhone(String donorPhone) { this.donorPhone = donorPhone; }
+
+    public Date getDonorPostedDate() { return donorPostedDate; }
+
+    public void setDonorPostedDate(Date donorPostedDate) { this.donorPostedDate = donorPostedDate; }
 
     public List<Donation> getDonations() { return donations; }
 

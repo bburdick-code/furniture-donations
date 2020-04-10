@@ -5,6 +5,7 @@ import org.hospitalityprogram.furnituredonations.data.ItemCategoryRepository;
 import org.hospitalityprogram.furnituredonations.models.Donation;
 import org.hospitalityprogram.furnituredonations.models.DonationBatch;
 import org.hospitalityprogram.furnituredonations.models.ItemCategory;
+import org.hospitalityprogram.furnituredonations.models.enums.DonationStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,7 +67,7 @@ public class DonationController {
             if (itemCategoryArray[i] != 0 ) {
                 Optional<ItemCategory> result = itemCategoryRepository.findById(itemCategoryArray[i]);
                 ItemCategory itemCategory = result.get();
-                Donation donation = new Donation(itemCategory, itemDescriptionArray[i], donationBatch);
+                Donation donation = new Donation(itemCategory, itemDescriptionArray[i], DonationStatus.POSTED, donationBatch);
                 donationBatch.addDonation(donation);
             }
         }

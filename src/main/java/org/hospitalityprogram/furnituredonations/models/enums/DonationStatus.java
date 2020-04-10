@@ -3,7 +3,8 @@ package org.hospitalityprogram.furnituredonations.models.enums;
 public enum DonationStatus {
 
     POSTED("Posted"),
-    COMPLETE("Complete");
+    PICKEDUP("Picked Up"),
+    DELIVERED("Delivered");
 
     private final String displayName;
 

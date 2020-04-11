@@ -3,7 +3,9 @@ package org.hospitalityprogram.furnituredonations.controllers;
 import org.hospitalityprogram.furnituredonations.data.ItemCategoryRepository;
 import org.hospitalityprogram.furnituredonations.data.ItemRepository;
 import org.hospitalityprogram.furnituredonations.data.UserRepository;
+import org.hospitalityprogram.furnituredonations.data.VolunteerRepository;
 import org.hospitalityprogram.furnituredonations.models.User;
+import org.hospitalityprogram.furnituredonations.models.VolunteerProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ public class VolunteerController {
     @Autowired
     ItemCategoryRepository itemCategoryRepository;
 
+    @Autowired
+    VolunteerRepository volunteerRepository;
+
     @GetMapping
     public String index(Model model) {
         model.addAttribute("title", "Nothing Here");
@@ -34,36 +39,39 @@ public class VolunteerController {
 
     @GetMapping("profile")
     public String renderProfile(HttpSession session, Model model) {
-        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
+        int userId = (int)session.getAttribute("user");
+        Optional<User> result = userRepository.findById(userId);
+        VolunteerProfile volunteer = volunteerRepository.findByUserId(userId);
         model.addAttribute("user", result.get());
+        model.addAttribute("volunteer", volunteer);
         model.addAttribute("title", "Profile");
         return "volunteer/profile/index";
     }
 
     @GetMapping("profile/edit")
     public String renderEditProfile(HttpSession session, Model model) {
-        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
+        int userId = (int)session.getAttribute("user");
+        Optional<User> result = userRepository.findById(userId);
+        VolunteerProfile volunteer = volunteerRepository.findByUserId(userId);
         model.addAttribute("user", result.get());
+        model.addAttribute("volunteer", volunteer);
         model.addAttribute("title", "Edit Info");
         return "volunteer/profile/edit";
     }
 
     @PostMapping("profile/edit")
-    public String processEditProfile(@ModelAttribute User user, @RequestParam int id, HttpSession session, Errors errors, Model model) {
-        Optional<User> resultOb = userRepository.findById(id);
-        User result = resultOb.get();
+    public String processEditProfile(@ModelAttribute User updateUser, @ModelAttribute VolunteerProfile updateVolunteer, HttpSession session, Errors errors, Model model) {
+        int userId = (int)session.getAttribute("user");
+        Optional<User> resultOb = userRepository.findById(userId);
+        User user = resultOb.get();
+        VolunteerProfile volunteer = volunteerRepository.findByUserId(userId);
 
-        if (user.getUserAddress() != null) { result.setUserAddress(user.getUserAddress()); }
-        if (user.getUserPhone() != null) { result.setUserPhone(user.getUserPhone()); }
-        if (user.getFirstName() != null) { result.setFirstName(user.getFirstName()); }
-        if (user.getLastName() != null) { result.setLastName(user.getLastName()); }
-        if (user.getNickname() != null) { result.setNickname(user.getNickname()); }
-        if (user.getPersonalEmail() != null) { result.setPersonalEmail(user.getPersonalEmail()); }
-        if (user.getCountry() != null) { result.setCountry(user.getCountry()); }
-        if (user.getGender() != null) { result.setGender(user.getGender()); }
-        if (user.getMaritalStatus() != null) { result.setMaritalStatus(user.getMaritalStatus()); }
+        if (updateUser.getUserAddress() != null) { user.setUserAddress(updateUser.getUserAddress()); }
+        if (updateUser.getUserPhone() != null) { user.setUserPhone(updateUser.getUserPhone()); }
+        if (updateVolunteer.getName() != null) { volunteer.setName(updateVolunteer.getName()); }
 
-        userRepository.save(result);
+        userRepository.save(user);
+        volunteerRepository.save(volunteer);
 
         return "redirect:/volunteer/profile";
     }

@@ -1,7 +1,11 @@
 package org.hospitalityprogram.furnituredonations.models;
 
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Table(name="STUDENT_PROFILE")
 public class StudentProfile extends AbstractEntity {
 
     private String firstName;
@@ -21,7 +25,10 @@ public class StudentProfile extends AbstractEntity {
     @OneToOne
     private User user;
 
-    public StudentProfile(String firstName, String lastName, String nickname, String personalEmail, String country, String gender, String maritalStatus, User user) {
+    @OneToMany(cascade = CascadeType.ALL)
+    private final List<Item> items = new ArrayList<>();
+
+    public StudentProfile(String firstName, String lastName, String nickname, String personalEmail, String country, String gender, String maritalStatus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickname = nickname;
@@ -29,6 +36,9 @@ public class StudentProfile extends AbstractEntity {
         this.country = country;
         this.gender = gender;
         this.maritalStatus = maritalStatus;
+    }
+
+    public StudentProfile(User user) {
         this.user = user;
     }
 
@@ -64,8 +74,12 @@ public class StudentProfile extends AbstractEntity {
 
     public void setMaritalStatus(String maritalStatus) { this.maritalStatus = maritalStatus; }
 
-    public User getUser() { return user; }
+    public List<Item> getItems() { return items; }
 
-    public void setUser(User user) { this.user = user; }
+    public void removeAllItems() { items.clear(); }
+
+    public void addItem(Item item) {items.add(item);}
+
+    public void removeItem (Item item) {items.remove(item);}
 
 }

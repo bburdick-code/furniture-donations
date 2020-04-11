@@ -1,5 +1,6 @@
 package org.hospitalityprogram.furnituredonations.models;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -9,6 +10,7 @@ import java.util.Objects;
 public abstract class AbstractEntity {
 
     @Id
+    @Column(name="ID")
     @GeneratedValue
     private int id;
 

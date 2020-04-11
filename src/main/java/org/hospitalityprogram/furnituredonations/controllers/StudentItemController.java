@@ -2,10 +2,11 @@ package org.hospitalityprogram.furnituredonations.controllers;
 
 import org.hospitalityprogram.furnituredonations.data.ItemCategoryRepository;
 import org.hospitalityprogram.furnituredonations.data.ItemRepository;
+import org.hospitalityprogram.furnituredonations.data.StudentRepository;
 import org.hospitalityprogram.furnituredonations.data.UserRepository;
 import org.hospitalityprogram.furnituredonations.models.Item;
 import org.hospitalityprogram.furnituredonations.models.ItemCategory;
-import org.hospitalityprogram.furnituredonations.models.User;
+import org.hospitalityprogram.furnituredonations.models.StudentProfile;
 import org.hospitalityprogram.furnituredonations.models.enums.ItemStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,12 +36,16 @@ public class StudentItemController {
     @Autowired
     ItemCategoryRepository itemCategoryRepository;
 
+    @Autowired
+    StudentRepository studentRepository;
+
     @GetMapping
     public String items(HttpSession session, Model model) {
-        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
-        User user = result.get();
+//        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
+//        User user = result.get();
+        StudentProfile student = studentRepository.findByUserId((int)session.getAttribute("user"));
 
-        List<Item> currentItems = user.getItems();
+        List<Item> currentItems = student.getItems();
         currentItems.sort(Comparator.comparingInt(Item::getItemPriority));
 
         model.addAttribute("title", "Requested Items");
@@ -74,10 +79,11 @@ public class StudentItemController {
         }
 
 
-        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
-        User user = result.get();
+//        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
+//        User user = result.get();
+        StudentProfile student = studentRepository.findByUserId((int)session.getAttribute("user"));
 
-        List<Item> currentItems = user.getItems();
+        List<Item> currentItems = student.getItems();
         currentItems.sort(Comparator.comparingInt(Item::getItemPriority));
         List<Item> newItems = new ArrayList<>();
 
@@ -107,8 +113,8 @@ public class StudentItemController {
                         if (!priorityFound) {
                             System.out.println("Created a new item: Priority " + (i+1));
                             Optional<ItemCategory> resultOb = itemCategoryRepository.findById(itemCategoryArray[i]);
-                            Item item = new Item(resultOb.get(), ItemStatus.REQUESTED, (i + 1), new Date(), user);
-                            user.addItem(item);
+                            Item item = new Item(resultOb.get(), ItemStatus.REQUESTED, (i + 1), new Date(), student);
+                            student.addItem(item);
                         }
                     }
                 }
@@ -123,7 +129,7 @@ public class StudentItemController {
                     }
                 }
             }
-            userRepository.save(user);
+            studentRepository.save(student);
         }
 
         return "redirect:/student/items";
@@ -131,9 +137,11 @@ public class StudentItemController {
 
     public Model PrepareEditForm(HttpSession session, Model model) {
 
-        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
-        User user = result.get();
-        List<Item> currentItems = user.getItems();
+//        Optional<User> result = userRepository.findById((int)session.getAttribute("user"));
+//        User user = result.get();
+
+        StudentProfile student = studentRepository.findByUserId((int)session.getAttribute("user"));
+        List<Item> currentItems = student.getItems();
         currentItems.sort(Comparator.comparingInt(Item::getItemPriority));
         List<Item> items = new ArrayList<>();
 

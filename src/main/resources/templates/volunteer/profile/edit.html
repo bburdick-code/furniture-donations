@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head"></head>
 <body class="container">
 
-<nav th:replace="fragments :: studentNav"></nav>
+<nav th:replace="fragments :: volunteerNav"></nav>
 
 <form method="post">
     <div class="form-group">
@@ -34,39 +34,9 @@
             <td> <input th:field="${user.userPhone}" class="form-controls"></td>
         </tr>
         <tr>
-            <td>First Name</td>
-            <td th:text="${user.firstName}"></td>
-            <td><input th:field="${user.firstName}" class="form-controls"></td>
-        </tr>
-        <tr>
-            <td>Last Name</td>
-            <td th:text="${user.lastName}"></td>
-            <td><input th:field="${user.lastName}" class="form-controls"></td>
-        </tr>
-        <tr>
-            <td>Nickname</td>
-            <td th:text="${user.nickname}"></td>
-            <td><input th:field="${user.nickname}" class="form-controls"></td>
-        </tr>
-        <tr>
-            <td>Personal Email</td>
-            <td th:text="${user.personalEmail}"></td>
-            <td><input th:field="${user.personalEmail}" class="form-controls"></td>
-        </tr>
-        <tr>
-            <td>Country</td>
-            <td th:text="${user.country}"></td>
-            <td><input th:field="${user.country}" class="form-controls"></td>
-        </tr>
-        <tr>
-            <td>Gender</td>
-            <td th:text="${user.gender}"></td>
-            <td><input th:field="${user.gender}" class="form-controls"></td>
-        </tr>
-        <tr>
-            <td>Marital Status</td>
-            <td th:text="${user.maritalStatus}"></td>
-            <td><input th:field="${user.maritalStatus}" class="form-controls"></td>
+            <td>Name</td>
+            <td th:text="${volunteer.name}"></td>
+            <td><input th:field="${volunteer.name}" class="form-controls"></td>
         </tr>
 
     </table>

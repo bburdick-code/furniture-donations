@@ -11,7 +11,7 @@ public class VolunteerRequestsController {
 
     @GetMapping
     public String viewRequests(Model model) {
-
+        model.addAttribute("title", "Student Requests");
         return "volunteer/requests/index";
     }
 

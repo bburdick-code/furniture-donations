@@ -20,14 +20,14 @@ public class Item extends AbstractEntity {
     private Date itemRequestDate;
 
     @ManyToOne
-    private User itemUser;
+    private StudentProfile itemStudent;
 
-    public Item(ItemCategory itemCategory, ItemStatus itemStatus, Integer itemPriority, Date itemRequestDate, User itemUser) {
+    public Item(ItemCategory itemCategory, ItemStatus itemStatus, Integer itemPriority, Date itemRequestDate, StudentProfile itemStudent) {
         this.itemCategory = itemCategory;
         this.itemStatus = itemStatus;
         this.itemPriority = itemPriority;
         this.itemRequestDate = itemRequestDate;
-        this.itemUser = itemUser;
+        this.itemStudent = itemStudent;
     }
 
     public Item(Item other) {
@@ -35,7 +35,7 @@ public class Item extends AbstractEntity {
         this.itemStatus = other.itemStatus;
         this.itemPriority = other.itemPriority;
         this.itemRequestDate = other.itemRequestDate;
-        this.itemUser = other.itemUser;
+        this.itemStudent = other.itemStudent;
     }
 
     public Item() {

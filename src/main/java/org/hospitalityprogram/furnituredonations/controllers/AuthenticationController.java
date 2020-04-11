@@ -1,7 +1,11 @@
 package org.hospitalityprogram.furnituredonations.controllers;
 
+import org.hospitalityprogram.furnituredonations.data.StudentRepository;
 import org.hospitalityprogram.furnituredonations.data.UserRepository;
+import org.hospitalityprogram.furnituredonations.data.VolunteerRepository;
+import org.hospitalityprogram.furnituredonations.models.StudentProfile;
 import org.hospitalityprogram.furnituredonations.models.User;
+import org.hospitalityprogram.furnituredonations.models.VolunteerProfile;
 import org.hospitalityprogram.furnituredonations.models.dto.LoginDTO;
 import org.hospitalityprogram.furnituredonations.models.dto.RegistrationDTO;
 import org.hospitalityprogram.furnituredonations.models.enums.UserType;
@@ -23,6 +27,12 @@ public class AuthenticationController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    StudentRepository studentRepository;
+
+    @Autowired
+    VolunteerRepository volunteerRepository;
 
     private static final String userSessionKey = "user";
 
@@ -78,6 +88,7 @@ public class AuthenticationController {
 
         User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.STUDENT);
         userRepository.save(newUser);
+        studentRepository.save(new StudentProfile(newUser));
         setUserInSession(request.getSession(), newUser);
 
         return "redirect:/student/profile/edit";
@@ -93,6 +104,8 @@ public class AuthenticationController {
     @PostMapping("/volunteer/register")
     public String processVolunteerRegistrationForm(@ModelAttribute @Valid RegistrationDTO registrationDTO,
                                           Errors errors, HttpServletRequest request, Model model) {
+
+        // TODO: I should probably refactor some of these parts so that I'm not reusing validation
         if (errors.hasErrors()) {
             model.addAttribute("title", "Register");
             return "volunteer/register";
@@ -116,9 +129,10 @@ public class AuthenticationController {
 
         User newUser = new User(registrationDTO.getUsername(), registrationDTO.getPassword(), registrationDTO.getUserAddress(), registrationDTO.getUserPhone(), UserType.VOLUNTEER);
         userRepository.save(newUser);
+        volunteerRepository.save(new VolunteerProfile(newUser));
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:/volunteer";
+        return "redirect:/volunteer/profile";
     }
 
     @GetMapping("/login")

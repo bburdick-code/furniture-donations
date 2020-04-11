@@ -31,6 +31,16 @@ public class VolunteerController {
     @Autowired
     VolunteerRepository volunteerRepository;
 
+//    @ModelAttribute("admin")
+//    public boolean AdminAuth(HttpSession session) {
+//        int userId = (int)session.getAttribute("user");
+//        Optional<User> user = userRepository.findById(userId);
+//        if (user.get().getUserType().ordinal() == 2) {
+//            return true;
+//        }
+//        return false;
+//    }
+
     @GetMapping
     public String index(Model model) {
         model.addAttribute("title", "Nothing Here");
@@ -74,6 +84,12 @@ public class VolunteerController {
         volunteerRepository.save(volunteer);
 
         return "redirect:/volunteer/profile";
+    }
+
+    @GetMapping("actions")
+    public String actions(Model model) {
+        model.addAttribute("title", "Admin Actions");
+        return "volunteer/actions/index";
     }
 
     @GetMapping("settings")

@@ -15,47 +15,33 @@
 </head>
 <body>
 
-<nav th:fragment="header">
+<div th:fragment="header">
+<nav>
     <h1 th:text="${title}">IHP Student Donations</h1>
-    <ul class="nav">
+    <ul class="nav tone1">
         <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
         <li class="nav-item"><a class="nav-link" href="/donate">Donations</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        <li class="nav-item"><a class="nav-link" href="/login" th:unless="${isLoggedIn}">Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout" th:if="${isLoggedIn}">Logout</a></li>
     </ul>
 </nav>
 
-<nav th:fragment="studentNav">
-    <h1 th:text="${title}">IHP Student Donations</h1>
-    <ul class="nav">
-        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+<nav th:if="${isStudent}">
+    <ul class="nav tone2">
         <li class="nav-item"><a class="nav-link" href="/student/profile">Profile</a></li>
         <li class="nav-item"><a class="nav-link" href="/student/items">Item Status</a></li>
         <li class="nav-item"><a class="nav-link" href="/student/settings">Settings</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
     </ul>
 </nav>
 
-<nav th:fragment="volunteerNav">
-    <h1 th:text="${title}">IHP Student Donations</h1>
+<nav th:if="${isAdmin} or ${isVolunteer}">
     <ul class="nav">
-        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="/volunteer/profile">Profile</a></li>
         <li class="nav-item"><a class="nav-link" href="/volunteer/requests">Requests</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+        <li class="nav-item"><a class="nav-link" href="/volunteer/actions" th:if="${isAdmin}">Admin Actions</a></li>
     </ul>
 </nav>
-
-<nav th:fragment="adminNav">
-    <h1 th:text="${title}">IHP Student Donations</h1>
-    <ul class="nav">
-        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/admin/profile">Profile</a></li>
-        <li class="nav-item"><a class="nav-link" href="/admin/requests">Requests</a></li>
-        <li class="nav-item"><a class="nav-link" href="/admin/actions">Admin Actions</a></li>
-        <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-    </ul>
-</nav>
+</div>
 
 </body>
 </html>

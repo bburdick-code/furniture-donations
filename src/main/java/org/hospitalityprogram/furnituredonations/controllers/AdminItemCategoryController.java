@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("admin/actions/itemCategory")
+@RequestMapping("volunteer/actions/itemCategory")
 public class AdminItemCategoryController {
 
     @Autowired
@@ -24,14 +24,14 @@ public class AdminItemCategoryController {
     public String renderViewItemCats(Model model) {
         model.addAttribute("title", "All Item Categories");
         model.addAttribute("categories", itemCategoryRepository.findAll());
-        return "admin/actions/itemCategory/index";
+        return "volunteer/actions/itemCategory/index";
     }
 
     @GetMapping("add")
     public String renderAddItemCatForm(Model model) {
         model.addAttribute("title", "Create Category");
         model.addAttribute(new ItemCategory());
-        return "admin/actions/itemCategory/add";
+        return "volunteer/actions/itemCategory/add";
     }
 
     @PostMapping("add")
@@ -40,10 +40,10 @@ public class AdminItemCategoryController {
             model.addAttribute("title", "Create Category");
             model.addAttribute(new ItemCategory());
             model.addAttribute("errorMsg", "Bad data!");
-            return "admin/actions/itemCategory/add";
+            return "volunteer/actions/itemCategory/add";
         }
         itemCategoryRepository.save(newItemCategory);
-        return "redirect:/admin/actions/itemCategory";
+        return "redirect:/volunteer/actions/itemCategory";
     }
 
 

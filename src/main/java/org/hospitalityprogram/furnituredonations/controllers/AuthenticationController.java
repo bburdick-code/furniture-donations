@@ -173,10 +173,8 @@ public class AuthenticationController {
 
         if (userTypeOrd == 0) {
             return "redirect:/student/profile"; }
-        else if (userTypeOrd == 1) {
+        else if (userTypeOrd == 1 || userTypeOrd == 2) {
             return "redirect:/volunteer/profile"; }
-        else if (userTypeOrd == 2) {
-            return "redirect:/admin/profile"; }
         else { return "redirect:/home"; }
 
     }

@@ -1,10 +1,45 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-</head>
-<body>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<nav th:replace="fragments :: header"></nav>
+
+<p> View your students and all their information here </p>
+
+<p> <a href="/volunteer/students/edit">Manage My Students</a> </p>
+
+<div class="overflow-x">
+    <table class="table table-striped" >
+        <thead>
+        <tr>
+            <th max-width="7%">Index</th>
+            <th>Student Name (Nickname)</th>
+            <th>Address</th>
+            <th>Student Email</th>
+            <th>Personal Email</th>
+            <th>Phone</th>
+            <th>Country</th>
+            <th>Gender</th>
+            <th>Marital Status</th>
+
+        </tr>
+        </thead>
+        <th:block th:each="student : ${myStudents}">
+            <tr >
+                <td > </td>
+                <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
+                <td th:text="${student.user.userAddress}"></td>
+                <td th:text="${student.user.username}"></td>
+                <td th:text="${student.personalEmail}"></td>
+                <td th:text="${student.user.userPhone}"></td>
+                <td th:text="${student.country}"></td>
+                <td th:text="${student.gender}"></td>
+                <td th:text="${student.maritalStatus}"></td>
+            </tr>
+        </th:block>
+    </table>
+</div>
 
 </body>
 </html>

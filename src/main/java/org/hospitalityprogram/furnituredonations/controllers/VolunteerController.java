@@ -70,6 +70,7 @@ public class VolunteerController {
     }
 
     @PostMapping("profile/edit")
+    // TODO: add the validation for the updates
     public String processEditProfile(@ModelAttribute User updateUser, @ModelAttribute VolunteerProfile updateVolunteer, HttpSession session, Errors errors, Model model) {
         int userId = (int)session.getAttribute("user");
         Optional<User> resultOb = userRepository.findById(userId);

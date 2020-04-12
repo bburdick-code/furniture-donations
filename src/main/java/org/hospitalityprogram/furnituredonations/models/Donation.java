@@ -25,6 +25,10 @@ public class Donation extends AbstractEntity {
         this.donationBatch = donationBatch;
     }
 
+    public Donation() {
+
+    }
+
     public ItemCategory getItemCategory() { return itemCategory; }
 
     public void setItemCategory(ItemCategory itemCategory) { this.itemCategory = itemCategory; }

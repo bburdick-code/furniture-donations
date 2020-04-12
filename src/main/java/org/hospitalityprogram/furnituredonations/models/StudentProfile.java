@@ -25,6 +25,9 @@ public class StudentProfile extends AbstractEntity {
     @OneToOne
     private User user;
 
+    @ManyToOne
+    private VolunteerProfile volunteer;
+
     @OneToMany(cascade = CascadeType.ALL)
     private final List<Item> items = new ArrayList<>();
 
@@ -73,6 +76,12 @@ public class StudentProfile extends AbstractEntity {
     public String getMaritalStatus() { return maritalStatus; }
 
     public void setMaritalStatus(String maritalStatus) { this.maritalStatus = maritalStatus; }
+
+    public VolunteerProfile getVolunteer() { return volunteer; }
+
+    public void setVolunteer(VolunteerProfile volunteer) { this.volunteer = volunteer; }
+
+    public User getUser() { return user; }
 
     public List<Item> getItems() { return items; }
 

@@ -1,10 +1,41 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
-</head>
-<body>
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<nav th:replace="fragments :: header"></nav>
+
+<p> Please select the students that you would like to be in charge of: </p>
+
+<table class="table table-striped" >
+    <thead>
+    <tr>
+        <th>Select</th>
+        <th>Student Name</th>
+        <th>Address</th>
+    </tr>
+    </thead>
+    <form method="post">
+        <th:block th:each="student : ${selectableStudents}">
+            <tr >
+                <td th:if="${student.volunteer}"> <input type="checkbox" name="selectedStudents" th:value="${student.id}" class="form-control" checked> </td>
+                <td th:unless="${student.volunteer}"> <input type="checkbox" name="selectedStudents" th:value="${student.id}" class="form-control"> </td>
+                <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
+                <td th:text="${student.user.userAddress}"></td>
+            </tr>
+        </th:block>
+        <tr>
+            <td></td>
+            <td>
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-success">
+                </div>
+            </td>
+            <td></td>
+        </tr>
+
+    </form>
+</table>
 
 </body>
 </html>

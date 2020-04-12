@@ -9,3 +9,7 @@ var counter = 2;
 
       counter++;
     }
+
+    function makeAlert() {
+    window.alert("button was pressed");
+    }

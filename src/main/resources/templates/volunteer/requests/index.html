@@ -7,6 +7,56 @@
 
 <p> This is where Volunteers see the total requests </p>
 
+<div class="container">
+    <div class="floatLeft" >
+        <table class="table table-striped overflow-y overflow-x">
+
+            <thead><label class="table-title">Student Requests</label></thead>
+            <thead>
+                <th>Volunteer</th>
+                <th>Student Name</th>
+                <th>#</th>
+                <th>Item </th>
+                <th>Status</th>
+            </thead>
+            <th:block th:each="student : ${students}">
+            <th:block th:each="item : ${student.items}">
+                <tr>
+                    <td th:text="${student.volunteer.name}" ></td>
+                    <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
+                    <td th:text="${item.itemPriority}" ></td>
+                    <td th:text="${item.itemCategory.name}" ></td>
+                    <td th:text="${item.itemStatus}" onclick="makeAlert()" style="cursor: pointer;"></td>
+                </tr>
+            </th:block>
+            </th:block>
+        </table>
+    </div>
+
+    <div class="floatRight">
+        <table class="table table-striped">
+            <thead><label class="table-title">Donations</label></thead>
+            <thead>
+            <th>Item</th>
+            <th>Batch #</th>
+            <th>Address</th>
+            <th>Info</th>
+            <th>Status</th>
+            </thead>
+            <th:block th:each="donationBatch : ${donationBatches}">
+                <th:block th:each="donation : ${donationBatch.donations}">
+                    <tr>
+                        <td th:text="${donation.itemCategory.name}" ></td>
+                        <td th:text="${donationBatch.id}" ></td>
+                        <td th:text="${donationBatch.donorAddress}" ></td>
+                        <td onclick="makeAlert()" style="cursor: pointer;" >CONTACT!</td>
+                        <td th:text="${donation.donationStatus}" onclick="makeAlert()" style="cursor: pointer;"></td>
+                    </tr>
+                </th:block>
+            </th:block>
+        </table>
+    </div>
+</div>
 
 </body>
 </html>

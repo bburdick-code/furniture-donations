@@ -43,4 +43,6 @@ public class VolunteerProfile extends AbstractEntity {
 
     public void removeStudent(StudentProfile studentProfile) { myStudents.remove(studentProfile); }
 
+    public void removeAllStudents() { myStudents.clear(); }
+
 }

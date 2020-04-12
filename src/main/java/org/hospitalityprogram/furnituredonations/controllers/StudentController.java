@@ -60,6 +60,7 @@ public class StudentController {
     }
 
     @PostMapping("profile/edit")
+    // TODO: add the validation for the student update stuff
     public String processEditProfile(@ModelAttribute User updateUser, @ModelAttribute StudentProfile updateStudent, HttpSession session, Errors errors, Model model) {
         int userId = (int)session.getAttribute("user");
 

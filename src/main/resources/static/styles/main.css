@@ -9,3 +9,29 @@ background-color: #fefbd8;
 .tone2 {
 background-color: #ffd4d4;
 }
+
+.overflow-x {
+    overflow-x: scroll;
+}
+
+.overflow-y {
+    overflow-y: scroll;
+}
+
+.overflow-xy {
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+th, td { white-space: nowrap }
+
+.floatLeft { width: 47%; float: left; }
+.floatRight {width: 47%; float: right; }
+
+.container { overflow: hidden; }
+
+.table-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}

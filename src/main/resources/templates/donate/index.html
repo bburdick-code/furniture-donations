@@ -1,92 +1,94 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container" >
+<body class="container">
 
-<nav th:replace="fragments :: header"></nav>
+<h1>IHP Donations</h1>
 
-<p> Here is where donors can fill out a form to donate items </p>
+<div class="container">
+    <form method="post">
 
-<table  style="display: none">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>
+                    <label>Donor name
+                        <input class="form-control" th:field="*{donationBatch.donorName}">
+                    </label>
+                    <p class="error" th:errors="${donationBatch.donorName}"></p>
+                </td>
+                <td>
+                    <label>Email
+                        <input class="form-control" th:field="*{donationBatch.donorEmail}">
+                    </label>
+                    <p class="error" th:errors="${donationBatch.donorEmail}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label>Phone #
+                        <input class="form-control" th:field="*{donationBatch.donorPhone}">
+                    </label>
+                    <p class="error" th:errors="${donationBatch.donorPhone}"></p>
+                </td>
+                <td>
+                    <div class="col-md-6">
+                        <label>Address of items
+                            <input class="form-control" th:field="*{donationBatch.donorAddress}">
+                        </label>
+                        <p class="error" th:errors="${donationBatch.donorAddress}"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <label>ZIP code
+                            <input class="form-control" th:field="*{donationBatch.donorZIP}">
+                        </label>
+                        <p class="error" th:errors="${donationBatch.donorZIP}"></p>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
 
-</table>
+        <p class="error" th:text="${itemError}"></p>
 
-<form method="post">
+        <table class="table table-striped" >
+            <tr>
+                <td>
 
-    <table class="table">
-        <tbody>
-
-        <tr>
-            <td>
-                <label>Donor name
-                    <input class="form-control" th:field="*{donationBatch.donorName}">
-                </label>
-                <p class="error" th:errors="${donationBatch.donorName}"></p>
-            </td>
-            <td>
-                <label>Email
-                    <input class="form-control" th:field="*{donationBatch.donorEmail}">
-                </label>
-                <p class="error" th:errors="${donationBatch.donorEmail}"></p>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <label>Phone #
-                    <input class="form-control" th:field="*{donationBatch.donorPhone}">
-                </label>
-                <p class="error" th:errors="${donationBatch.donorPhone}"></p>
-            </td>
-            <td>
-                <label>Address of items
-                    <input class="form-control" th:field="*{donationBatch.donorAddress}">
-                </label>
-                <p class="error" th:errors="${donationBatch.donorAddress}"></p>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <p class="error" th:text="${itemError}"></p>
-
-    <table class="table table-striped" >
-        <tbody id="itemsTable">
-        <tr id="item">
-            <td width="3%">
-                <label>1</label>
-            </td>
-            <td>
-                <label id="itemLabel">Item Type
-                    <select name="itemCategoryArray">
-                        <option value="0"></option>
-                        <th:block th:each="itemCategory : ${categories}">
-                            <option th:value="${itemCategory.id}"
-                                    th:text="${itemCategory.name}"></option>
-                        </th:block>
-                    </select>
-                </label>
-            </td>
-            <td>
-                <label>Dimensions/Description
-                    <input class="form-control" name="itemDescriptionArray" type="text" placeholder="ie. L x W X H ">
-                </label>
-            </td>
-        </tr>
-        </tbody>
-        <tr>
-            <td>
-
-            </td>
-            <td>
-                <button onclick="addDonationItem()" class="btn btn-primary" type="button">Add Item</button>
-            </td>
-            <td>
-                <input type="submit" class="btn btn-primary" value="Submit" />
-            </td>
-        </tr>
-
-    </table>
-</form>
+                </td>
+                <td>
+                    <button onclick="addDonationItem()" class="btn btn-primary" type="button">Add Item</button>
+                </td>
+                <td>
+                    <input type="submit" class="btn btn-primary" value="Submit" />
+                </td>
+            </tr>
+            <tbody id="itemsTable">
+            <tr id="item">
+                <td width="3%">
+                    <label>1</label>
+                </td>
+                <td>
+                    <label id="itemLabel">Item Type
+                        <select name="itemCategoryArray" class="form-control">
+                            <option value="0"></option>
+                            <th:block th:each="itemCategory : ${categories}">
+                                <option th:value="${itemCategory.id}"
+                                        th:text="${itemCategory.name}"></option>
+                            </th:block>
+                        </select>
+                    </label>
+                </td>
+                <td>
+                    <label>Dimensions/Description
+                        <input class="form-control" name="itemDescriptionArray" type="text" placeholder="ie. L x W X H ">
+                    </label>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
 
 </body>
 </html>

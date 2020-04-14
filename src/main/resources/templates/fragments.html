@@ -4,10 +4,7 @@
     <meta charset="UTF-8"/>
     <title>IHP Student Donations</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script
-            src="https://code.jquery.com/jquery-3.4.1.js"
-            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-            crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" th:src="@{/javascript/actions.js}"></script>
     <link rel="stylesheet" th:href="@{/styles/main.css}">
@@ -15,14 +12,53 @@
 </head>
 <body>
 
-<div th:fragment="header">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Features</a>
+            <a class="nav-item nav-link" href="#">Pricing</a>
+            <a class="nav-item nav-link disabled" href="#">Disabled</a>
+        </div>
+    </div>
+</nav>
+
+<div th:fragment="header" class="navbar navbar-inverse tone1" role="navigation" style="margin-bottom: 10px;">
+    <div class="container">
+        <div class="navbar-header">
+            <ul class="nav">
+                <li th:if="${isStudent}" class="nav-item"><a class="nav-link" href="/student/items">Item Status</a></li>
+                <th:block th:if="${isAdmin} or ${isVolunteer}">
+                    <li class="nav-item"><a class="nav-link" href="/volunteer/students">My Students</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/volunteer/requests">Requests</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/volunteer/actions" th:if="${isAdmin}">Admin Actions</a></li>
+                </th:block>
+            </ul>
+        </div>
+        <div class="navbar-header">
+            <ul class="nav ml-auto">
+                <li th:if="${isAdmin} or ${isVolunteer}" class="nav-item"><a class="nav-link" href="/volunteer/profile">Profile</a></li>
+                <li th:if="${isStudent}" class="nav-item"><a class="nav-link" href="/student/profile">Profile</a></li>
+                <li class="nav-item float-right"><a class="nav-link" href="/login" th:unless="${isLoggedIn}">Login</a></li>
+                <li class="nav-item float-right"><a class="nav-link" href="/logout" th:if="${isLoggedIn}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div >
     <h1 th:text="${title}">No Title</h1>
     <nav>
         <ul class="nav tone1">
-            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="/donate">Donations</a></li>
-            <li class="nav-item"><a class="nav-link" href="/login" th:unless="${isLoggedIn}">Login</a></li>
-            <li class="nav-item"><a class="nav-link" href="/logout" th:if="${isLoggedIn}">Logout</a></li>
+            <li class="nav-item float-right"><a class="nav-link" href="/login" th:unless="${isLoggedIn}">Login</a></li>
+            <li class="nav-item float-right"><a class="nav-link" href="/logout" th:if="${isLoggedIn}">Logout</a></li>
         </ul>
     </nav>
 
@@ -30,7 +66,6 @@
         <ul class="nav tone2">
             <li class="nav-item"><a class="nav-link" href="/student/profile">Profile</a></li>
             <li class="nav-item"><a class="nav-link" href="/student/items">Item Status</a></li>
-            <li class="nav-item"><a class="nav-link" href="/student/settings">Settings</a></li>
         </ul>
     </nav>
 

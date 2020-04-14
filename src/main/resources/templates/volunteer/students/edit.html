@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body class="container" style="overflow:auto;">
 
 <nav th:replace="fragments :: header"></nav>
 
@@ -18,8 +18,16 @@
     <form method="post">
         <th:block th:each="student : ${selectableStudents}">
             <tr >
-                <td th:if="${student.volunteer}"> <input type="checkbox" name="selectedStudents" th:value="${student.id}" class="form-control" checked> </td>
-                <td th:unless="${student.volunteer}"> <input type="checkbox" name="selectedStudents" th:value="${student.id}" class="form-control"> </td>
+                <td th:if="${student.volunteer}">
+                    <div class="form-check float-center">
+                        <input type="checkbox" name="selectedStudents" th:value="${student.id}" class="form-check-input" checked>
+                    </div>
+                </td>
+                <td th:unless="${student.volunteer}">
+                    <div class="form-group float-center">
+                        <input type="checkbox" name="selectedStudents" th:value="${student.id}" class="form-check-input">
+                    </div>
+                </td>
                 <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
                 <td th:text="${student.user.userAddress}"></td>
             </tr>

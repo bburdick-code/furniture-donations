@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body class="container" style="overflow:auto;">
 
 <header th:replace="fragments :: header"></header>
 
 <p> This is where Volunteers see the total requests </p>
 
-<div class="container">
+<div>
     <div class="floatLeft" >
-        <table class="table table-striped overflow-y overflow-x">
+        <table class="table table-tricolor table-tricolor-info">
 
             <thead><label class="table-title">Student Requests</label></thead>
             <thead>
@@ -20,43 +20,59 @@
                 <th>Status</th>
             </thead>
             <th:block th:each="student : ${students}">
-            <th:block th:each="item : ${student.items}">
-                <tr>
-                    <td th:text="${student.volunteer.name}" ></td>
-                    <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
-                    <td th:text="${item.itemPriority}" ></td>
-                    <td th:text="${item.itemCategory.name}" ></td>
-                    <td th:text="${item.itemStatus}" onclick="makeAlert()" style="cursor: pointer;"></td>
-                </tr>
-            </th:block>
+                <th:block th:each="item : ${student.items}">
+                    <tr class="student-reveal" style="cursor: pointer;">
+                        <td th:text="${student.volunteer.firstName}+' '+${student.volunteer.getFirstLetter()}" ></td>
+                        <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
+                        <td th:text="${item.itemPriority}" ></td>
+                        <td th:text="${item.itemCategory.name}" ></td>
+                        <td th:text="${item.itemStatus}" onclick="changeItemStatusAjax(this)" th:id="${item.id}" style="cursor: pointer;"></td>
+                    </tr>
+                    <tr class="student-info">
+                        <td style="background-color: rgba(0,0,0,0);"></td>
+                        <td colspan="4">
+                            <span th:text="'Address:  ' +${student.user.userAddress}" class="pre-format"></span><br/>
+                            <span th:text="'Phone:    ' +${student.user.userPhone}" class="pre-format"></span><br/>
+                            <span th:text="'Student Email:   ' +${student.user.username}" class="pre-format"></span><br/>
+                            <span th:text="'Personal Email:  ' +${student.personalEmail}" class="pre-format"></span><br/>
+                        </td>
+                    </tr>
+                </th:block>
             </th:block>
         </table>
     </div>
 
     <div class="floatRight">
-        <table class="table table-striped">
+        <table class="table table-tricolor table-tricolor-info">
             <thead><label class="table-title">Donations</label></thead>
             <thead>
             <th>Item</th>
             <th>Batch #</th>
-            <th>Address</th>
-            <th>Info</th>
+            <th>ZIP Code</th>
             <th>Status</th>
             </thead>
             <th:block th:each="donationBatch : ${donationBatches}">
                 <th:block th:each="donation : ${donationBatch.donations}">
-                    <tr>
+                    <tr class="donor-reveal" style="cursor: pointer;">
                         <td th:text="${donation.itemCategory.name}" ></td>
                         <td th:text="${donationBatch.id}" ></td>
-                        <td th:text="${donationBatch.donorAddress}" ></td>
-                        <td onclick="makeAlert()" style="cursor: pointer;" >CONTACT!</td>
-                        <td th:text="${donation.donationStatus}" onclick="makeAlert()" style="cursor: pointer;"></td>
+                        <td th:text="${donationBatch.donorZIP}" ></td>
+                        <td th:text="${donation.donationStatus}" onclick="changeDonationStatusAjax(this)" th:id="${donation.id}" style="cursor: pointer;"></td>
+                    </tr>
+                    <tr class="donor-info">
+                        <td colspan="4">
+                            <span th:text="'Name:      ' +${donationBatch.donorName}" class="pre-format"></span><br/>
+                            <span th:text="'Address:  ' +${donationBatch.donorAddress}+', '+${donationBatch.donorZIP}" class="pre-format"></span><br/>
+                            <span th:text="'Phone:     ' +${donationBatch.donorPhone}" class="pre-format"></span><br/>
+                            <span th:text="'Email:       ' +${donationBatch.donorEmail}" class="pre-format"></span><br/>
+                        </td>
                     </tr>
                 </th:block>
             </th:block>
         </table>
     </div>
 </div>
+<br/>
 
 </body>
 </html>

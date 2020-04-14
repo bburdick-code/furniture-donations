@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body class="container" style="overflow:auto;">
 
 <nav th:replace="fragments :: header"></nav>
 
-<p> This is where Students select their items </p>
+<div class="container">
+    <p> This is where Students select their items </p>
+</div>
 
-<p ><span class="error" th:text="${errMsg}"></span></p>
-
-<form method="post">
-    <th:block th:each="item : ${items}" >
-        <div class="form-group">
-            <label th:text="'Item #' + ${item.itemPriority} + '  '">        </label>
-            <select th:name="itemCategoryArray">
+<div class="container">
+    <form method="post">
+        <th:block th:each="item : ${items}" >
+            <div class="form-group">
+            <span>
+                <label th:text="'Item #' + ${item.itemPriority} + '  '"></label>
+                <select th:name="itemCategoryArray" class="form-control" style="width:auto;">
 
                 <option value="0"></option>
                 <th:block th:unless="${item.itemCategory}" th:each="itemCategory : ${categories}">
@@ -26,19 +28,22 @@
                             th:text="${itemCategory.name}"
                             th:selected="(${itemCategory.id}==*{item.itemCategory.id})"></option>
                 </th:block>
+                </select>
+            </span>
+                <p class="error" th:errors="${item.itemCategory}"></p>
+            </div>
+        </th:block>
+        <input type="submit" value="Update" class="btn btn-success">
+    </form>
+</div>
 
-            </select>
-            <p class="error" th:errors="${item.itemCategory}"></p>
-        </div>
-    </th:block>
+<div class="container">
+    <p><span class="error" th:text="${errMsg}"></span></p>
+</div>
 
-
-    <input type="submit" value="Update" class="btn btn-success">
-
-
-</form>
-
-<p>If you need to request a special item that does not appear on the list, please email [admin@ihp.com]</p>
+<div class="container">
+    <p>If you need to request a special item that does not appear on the list, please email [admin@ihp.com]</p>
+</div>
 
 </body>
 </html>

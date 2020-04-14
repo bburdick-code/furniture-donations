@@ -79,7 +79,8 @@ public class VolunteerController {
 
         if (updateUser.getUserAddress() != null) { user.setUserAddress(updateUser.getUserAddress()); }
         if (updateUser.getUserPhone() != null) { user.setUserPhone(updateUser.getUserPhone()); }
-        if (updateVolunteer.getName() != null) { volunteer.setName(updateVolunteer.getName()); }
+        if (updateVolunteer.getFirstName() != null) { volunteer.setFirstName(updateVolunteer.getFirstName()); }
+        if (updateVolunteer.getLastName() != null) { volunteer.setLastName(updateVolunteer.getLastName()); }
 
         userRepository.save(user);
         volunteerRepository.save(volunteer);

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body class="container" style="overflow:auto;">
 
 <header th:replace="fragments :: header"></header>
 
@@ -34,9 +34,14 @@
             <td> <input th:field="${user.userPhone}" class="form-controls"></td>
         </tr>
         <tr>
-            <td>Name</td>
-            <td th:text="${volunteer.name}"></td>
-            <td><input th:field="${volunteer.name}" class="form-controls"></td>
+            <td>First Name</td>
+            <td th:text="${volunteer.firstName}"></td>
+            <td><input th:field="${volunteer.firstName}" class="form-controls"></td>
+        </tr>
+        <tr>
+            <td>Last Name</td>
+            <td th:text="${volunteer.lastName}"></td>
+            <td><input th:field="${volunteer.lastName}" class="form-controls"></td>
         </tr>
 
     </table>

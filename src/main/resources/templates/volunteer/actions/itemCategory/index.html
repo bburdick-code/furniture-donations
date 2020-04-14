@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body class="container" style="overflow:auto;">
 
 <header th:replace="fragments :: header"></header>
 
@@ -15,7 +15,7 @@
     </tr>
     </thead>
     <tr th:each="cat : ${categories}">
-        <td><a th:text="${cat.getName()}" th:href="@{/events/?categoryId={id}(id=${cat.id})}"></a></td>
+        <td th:text="${cat.getName()}"></td>
     </tr>
 </table>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container">
+<body class="container" style="overflow:auto;">
 
 <header th:replace="fragments :: header"></header>
 
@@ -26,7 +26,11 @@
     </tr>
     <tr>
         <td>First Name</td>
-        <td th:text="${volunteer.name}"></td>
+        <td th:text="${volunteer.firstName}"></td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td th:text="${volunteer.lastName}"></td>
     </tr>
 </table>
 

@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,9 @@ public class DonationBatch extends AbstractEntity{
     @NotBlank(message = "Required field")
     private String donorAddress;
 
+    @Pattern(regexp="^[0-9]{5}(?:-[0-9]{4})?$", message = "Must be a valid ZIP code")
+    private String donorZIP;
+
     @NotBlank(message = "Required field")
     private String donorPhone;
 
@@ -28,10 +32,11 @@ public class DonationBatch extends AbstractEntity{
     @OneToMany(cascade = CascadeType.ALL)
     private final List<Donation> donations = new ArrayList<>();
 
-    public DonationBatch(String donorName, String donorEmail, String donorAddress, String donorPhone, Date donorPostedDate) {
+    public DonationBatch(String donorName, String donorEmail, String donorAddress, String donorZIP, String donorPhone, Date donorPostedDate) {
         this.donorName = donorName;
         this.donorEmail = donorEmail;
         this.donorAddress = donorAddress;
+        this.donorZIP = donorZIP;
         this.donorPhone = donorPhone;
         this.donorPostedDate = donorPostedDate;
     }
@@ -51,6 +56,10 @@ public class DonationBatch extends AbstractEntity{
     public String getDonorAddress() { return donorAddress; }
 
     public void setDonorAddress(String donorAddress) { this.donorAddress = donorAddress; }
+
+    public String getDonorZIP() { return donorZIP; }
+
+    public void setDonorZIP(String donorZIP) { this.donorZIP = donorZIP; }
 
     public String getDonorPhone() { return donorPhone; }
 

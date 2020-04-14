@@ -12,72 +12,30 @@
 </head>
 <body>
 
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav th:fragment="header (page)" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">IHP Website</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav mr-auto">
+            <th:block th:if="${isStudent}">
+                <a class="nav-item nav-link" href="/student/items" th:classappend="${#strings.equals(page,'items')} ? active : ''">Item Status</a>
+                <a class="nav-item nav-link" href="/student/resources" th:classappend="${#strings.equals(page,'resources')} ? active : ''">Resources</a>
+            </th:block>
+            <th:block th:if="${isVolunteer} or ${isAdmin}">
+                <a class="nav-item nav-link" href="/volunteer/students" th:classappend="${#strings.equals(page,'students')} ? active : ''">My Students</a>
+                <a class="nav-item nav-link" href="/volunteer/requests" th:classappend="${#strings.equals(page,'requests')} ? active : ''">Requests</a>
+                <a class="nav-item nav-link" href="/volunteer/actions" th:if="${isAdmin}" th:classappend="${#strings.equals(page,'actions')} ? active : ''">Admin Actions</a>
+            </th:block>
+        </div>
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Features</a>
-            <a class="nav-item nav-link" href="#">Pricing</a>
-            <a class="nav-item nav-link disabled" href="#">Disabled</a>
+            <a class="nav-item nav-link" href="/volunteer/profile" th:if="${isVolunteer} or ${isAdmin}" th:classappend="${#strings.equals(page,'profile')} ? active : ''">Profile</a>
+            <a class="nav-item nav-link" href="/student/profile" th:if="${isStudent}" th:classappend="${#strings.equals(page,'profile')} ? active : ''">Profile</a>
+            <a class="nav-item nav-link" href="/logout">Logout</a>
         </div>
     </div>
 </nav>
-
-<div th:fragment="header" class="navbar navbar-inverse tone1" role="navigation" style="margin-bottom: 10px;">
-    <div class="container">
-        <div class="navbar-header">
-            <ul class="nav">
-                <li th:if="${isStudent}" class="nav-item"><a class="nav-link" href="/student/items">Item Status</a></li>
-                <th:block th:if="${isAdmin} or ${isVolunteer}">
-                    <li class="nav-item"><a class="nav-link" href="/volunteer/students">My Students</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/volunteer/requests">Requests</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/volunteer/actions" th:if="${isAdmin}">Admin Actions</a></li>
-                </th:block>
-            </ul>
-        </div>
-        <div class="navbar-header">
-            <ul class="nav ml-auto">
-                <li th:if="${isAdmin} or ${isVolunteer}" class="nav-item"><a class="nav-link" href="/volunteer/profile">Profile</a></li>
-                <li th:if="${isStudent}" class="nav-item"><a class="nav-link" href="/student/profile">Profile</a></li>
-                <li class="nav-item float-right"><a class="nav-link" href="/login" th:unless="${isLoggedIn}">Login</a></li>
-                <li class="nav-item float-right"><a class="nav-link" href="/logout" th:if="${isLoggedIn}">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-
-<div >
-    <h1 th:text="${title}">No Title</h1>
-    <nav>
-        <ul class="nav tone1">
-            <li class="nav-item"><a class="nav-link" href="/donate">Donations</a></li>
-            <li class="nav-item float-right"><a class="nav-link" href="/login" th:unless="${isLoggedIn}">Login</a></li>
-            <li class="nav-item float-right"><a class="nav-link" href="/logout" th:if="${isLoggedIn}">Logout</a></li>
-        </ul>
-    </nav>
-
-    <nav th:if="${isStudent}">
-        <ul class="nav tone2">
-            <li class="nav-item"><a class="nav-link" href="/student/profile">Profile</a></li>
-            <li class="nav-item"><a class="nav-link" href="/student/items">Item Status</a></li>
-        </ul>
-    </nav>
-
-    <nav th:if="${isAdmin} or ${isVolunteer}">
-        <ul class="nav tone2">
-            <li class="nav-item"><a class="nav-link" href="/volunteer/profile">Profile</a></li>
-            <li class="nav-item"><a class="nav-link" href="/volunteer/students">My Students</a></li>
-            <li class="nav-item"><a class="nav-link" href="/volunteer/requests">Requests</a></li>
-            <li class="nav-item"><a class="nav-link" href="/volunteer/actions" th:if="${isAdmin}">Admin Actions</a></li>
-        </ul>
-    </nav>
-</div>
 
 </body>
 </html>

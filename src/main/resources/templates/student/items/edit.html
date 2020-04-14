@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container" style="overflow:auto;">
+<body class="container">
 
-<nav th:replace="fragments :: header"></nav>
+<nav th:replace="fragments :: header('items')"></nav>
 
 <div class="container">
     <p> This is where Students select their items </p>

@@ -79,27 +79,15 @@ h2 span {
     padding:0 10px;
 }
 
-.call-left {
-width: 34%;
-float: left; }
-
-.call-center {
-width: 32%;
-float: center; }
-
-.call-right {
-width: 34%;
-float: right; }
-
 .items-center {
     align-items: center;
 
 }
 
-body {
-    overflow: auto;
-}
-
 html {
   overflow-y: scroll;
+}
+
+.navbar-collapse>div:first-child{
+    border-left: 2px solid #ffffff
 }

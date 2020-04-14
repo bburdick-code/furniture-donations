@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
-<body class="container" style="overflow:auto;">
+<body class="container">
 
-<header th:replace="fragments :: header"></header>
+<header th:replace="fragments :: header('actions')"></header>
 
 <p> This is where Admins can execute actions, like database reset or adding additional admins </p>
 

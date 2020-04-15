@@ -72,7 +72,6 @@ $(document).ready(function(){
 
 		function changeDonationStatusAjax(theElement) {
     		var status = {};
-            alert("Pressed")
     		status['donationId'] = theElement.id;
             status['donationStatus'] = theElement.textContent;
 

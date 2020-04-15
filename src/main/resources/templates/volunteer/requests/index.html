@@ -7,9 +7,9 @@
 
 <p> This is where Volunteers see the total requests </p>
 
-<div>
-    <div class="floatLeft" >
-        <table class="table table-tricolor table-tricolor-info">
+<div class="row">
+    <div class="col-sm-6 table-responsive" >
+        <table class="table table-tricolor-info">
 
             <thead><label class="table-title">Student Requests</label></thead>
             <thead>
@@ -19,18 +19,17 @@
                 <th>Item </th>
                 <th>Status</th>
             </thead>
-            <th:block th:each="student : ${students}">
+            <th:block th:each="student, iStudent : ${students}">
                 <th:block th:each="item : ${student.items}">
-                    <tr class="student-reveal" style="cursor: pointer;">
-                        <td th:text="${student.volunteer.firstName}+' '+${student.volunteer.getFirstLetter()}" ></td>
+                    <tr class="student-reveal" style="cursor: pointer;" th:attr="data-student=${iStudent.odd}? 'group-stripe' : ''">
+                        <td th:text="${student.volunteer} ? ${student.volunteer.firstName}+' '+${student.volunteer.getFirstLetter()} : 'NONE'" ></td>
                         <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
                         <td th:text="${item.itemPriority}" ></td>
                         <td th:text="${item.itemCategory.name}" ></td>
                         <td th:text="${item.itemStatus}" onclick="changeItemStatusAjax(this)" th:id="${item.id}" style="cursor: pointer;"></td>
                     </tr>
                     <tr class="student-info">
-                        <td style="background-color: rgba(0,0,0,0);"></td>
-                        <td colspan="4">
+                        <td colspan="5">
                             <span th:text="'Address:  ' +${student.user.userAddress}" class="pre-format"></span><br/>
                             <span th:text="'Phone:    ' +${student.user.userPhone}" class="pre-format"></span><br/>
                             <span th:text="'Student Email:   ' +${student.user.username}" class="pre-format"></span><br/>
@@ -42,8 +41,8 @@
         </table>
     </div>
 
-    <div class="floatRight">
-        <table class="table table-tricolor table-tricolor-info">
+    <div class="col-sm-6 table-responsive-sm">
+        <table class="table table-tricolor-info">
             <thead><label class="table-title">Donations</label></thead>
             <thead>
             <th>Item</th>
@@ -51,9 +50,9 @@
             <th>ZIP Code</th>
             <th>Status</th>
             </thead>
-            <th:block th:each="donationBatch : ${donationBatches}">
+            <th:block th:each="donationBatch, iBatch : ${donationBatches}">
                 <th:block th:each="donation : ${donationBatch.donations}">
-                    <tr class="donor-reveal" style="cursor: pointer;">
+                    <tr class="donor-reveal" style="cursor: pointer;" th:attr="data-batch=${iBatch.odd}? 'group-stripe' : ''">
                         <td th:text="${donation.itemCategory.name}" ></td>
                         <td th:text="${donationBatch.id}" ></td>
                         <td th:text="${donationBatch.donorZIP}" ></td>

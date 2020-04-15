@@ -46,8 +46,12 @@ th, td { white-space: nowrap }
     background-color: #6ed48b;
   }
 
-.table-tricolor {
-    (2n+1)
+tr[data-student$="group-stripe"] {
+     background-color: rgba(0,0,0,.05);
+}
+
+tr[data-batch="group-stripe"] {
+     background-color: rgba(0,0,0,.05);
 }
 
 .plain-cell {

@@ -1,6 +1,6 @@
 MISSION: At my local university, we have a hospitality program for international
 students that connects them with resources, a host family, and donates
-much needed items for their apartments. This application would help facilitate
+much needed items for their apartments. This application will help facilitate
 item donations and allocating the items to students based on their requests and
 priorities.
 
@@ -10,14 +10,15 @@ FEATURES:
    - Profile
    - Item Selection
    - Status
+   - Donation page
 
 - FUTURE:
-   - Donation page
    - Automatic emailing
 
 STACK:
 - Java
 - Javascript
+- jQuery
 - Spring Boot
 - Thymeleaf
 - MySQL

@@ -5,9 +5,11 @@
 
 <header th:replace="fragments :: header('actions')"></header>
 
+<p class="my-3">[COMING SOON] Delete categories</p>
+
 <form method="post">
     <div class="form-group">
-        <label>Name
+        <label>New Category
             <input th:field="${itemCategory.name}" class="form-controls">
         </label>
         <p class="error" th:errors="${itemCategory.name}"></p>

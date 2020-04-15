@@ -5,9 +5,9 @@
 
 <nav th:replace="fragments :: header('students')"></nav>
 
-<p> View your students and all their information here </p>
+<p class="my-3"> This is a list of all the students you are responsible for.</p>
 
-<p> <a href="/volunteer/students/edit">Manage My Students</a> </p>
+<p class="my-3"> <a href="/volunteer/students/edit">Manage My Students</a> </p>
 
 <div class="overflow-x">
     <table class="table table-striped" >
@@ -25,9 +25,9 @@
 
         </tr>
         </thead>
-        <th:block th:each="student : ${myStudents}">
+        <th:block th:each="student, iStudent : ${myStudents}">
             <tr >
-                <td > </td>
+                <td th:text="${iStudent.count}"> </td>
                 <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
                 <td th:text="${student.user.userAddress}"></td>
                 <td th:text="${student.user.username}"></td>
@@ -40,6 +40,8 @@
         </th:block>
     </table>
 </div>
+
+<p class="my-3" th:unless="${myStudents} and ${myStudents.size()}">You are currently not managing any students. Click <a href="/volunteer/students/edit">here</a> to start selecting students.</p>
 
 </body>
 </html>

@@ -5,6 +5,8 @@
 
 <header th:replace="fragments :: header('profile')"></header>
 
+<p class="my-3">Please fill out as many fields as you can.</p>
+
 <form method="post">
     <div class="form-group">
         <input type="hidden" th:value="${user.id}" name="id">

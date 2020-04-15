@@ -5,9 +5,7 @@
 
 <nav th:replace="fragments :: header('items')"></nav>
 
-<div class="container">
-    <p> This is where Students select their items </p>
-</div>
+<p class="my-3"> You may edit your request items here until they are completed. Once the item is completed and the request is marked "Delivered", you will no longer be able to change that item.</p>
 
 <div class="container">
     <form method="post">
@@ -41,9 +39,9 @@
     <p><span class="error" th:text="${errMsg}"></span></p>
 </div>
 
-<div class="container">
-    <p>If you need to request a special item that does not appear on the list, please email [admin@ihp.com]</p>
-</div>
+<p class="my-3">If you need to request a special item that does not appear on the list, please email [admin@ihp.com]</p>
+
+<p class="my-3">[COMING SOON] Disable items that have been already been delivered.</p>
 
 </body>
 </html>

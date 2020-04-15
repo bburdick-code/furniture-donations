@@ -5,13 +5,15 @@
 
 <header th:replace="fragments :: header('requests')"></header>
 
-<p> This is where Volunteers see the total requests </p>
+<p class="my-3"> View all student requests and donations here.</p>
+
+<p class="my-3">[COMING SOON]: Column sorting, automated emails.</p>
 
 <div class="row">
-    <div class="col-sm-6 table-responsive" >
+    <div class="col-sm-6 table-responsive">
         <table class="table table-tricolor-info">
 
-            <thead><label class="table-title">Student Requests</label></thead>
+            <thead><label class="table-title text-center">Student Requests</label></thead>
             <thead>
                 <th>Volunteer</th>
                 <th>Student Name</th>
@@ -22,7 +24,7 @@
             <th:block th:each="student, iStudent : ${students}">
                 <th:block th:each="item : ${student.items}">
                     <tr class="student-reveal" style="cursor: pointer;" th:attr="data-student=${iStudent.odd}? 'group-stripe' : ''">
-                        <td th:text="${student.volunteer} ? ${student.volunteer.firstName}+' '+${student.volunteer.getFirstLetter()} : 'NONE'" ></td>
+                        <td th:text="${student.volunteer} ? ${student.volunteer.firstName}+' '+${student.volunteer.getFirstLetter()} : 'N/A'" ></td>
                         <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
                         <td th:text="${item.itemPriority}" ></td>
                         <td th:text="${item.itemCategory.name}" ></td>
@@ -39,11 +41,12 @@
                 </th:block>
             </th:block>
         </table>
+        <p class="my-3" th:unless="${students} and ${students.size()}">There are currently no item requests in the system.</p>
     </div>
 
     <div class="col-sm-6 table-responsive-sm">
         <table class="table table-tricolor-info">
-            <thead><label class="table-title">Donations</label></thead>
+            <thead><label class="table-title text-center">Donations</label></thead>
             <thead>
             <th>Item</th>
             <th>Batch #</th>
@@ -69,6 +72,7 @@
                 </th:block>
             </th:block>
         </table>
+        <p class="my-3" th:unless="${donationBatches} and ${donationBatches.size()}">There are currently no donations in the system.</p>
     </div>
 </div>
 <br/>

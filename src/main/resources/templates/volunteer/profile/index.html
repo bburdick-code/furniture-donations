@@ -5,17 +5,9 @@
 
 <header th:replace="fragments :: header('profile')"></header>
 
-<p> This is where Volunteers view their profile </p>
+<p class="my-3"><a href="/volunteer/profile/edit" >Edit My Profile</a></p>
 
 <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Field</th>
-        <th>Value
-            <a href="/volunteer/profile/edit" >Edit</a>
-        </th>
-    </tr>
-    </thead>
     <tr>
         <td>Address</td>
         <td th:text="${user.userAddress}"></td>

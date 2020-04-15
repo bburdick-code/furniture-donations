@@ -5,6 +5,8 @@
 
 <nav th:replace="fragments :: header('profile')"></nav>
 
+<p class="my-3">Please fill in as many fields as you can. This will help us match with items more efficiently. </p>
+
 <form method="post">
     <div class="form-group">
         <input type="hidden" th:value="${user.id}" name="id">

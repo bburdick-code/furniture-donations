@@ -132,7 +132,7 @@ public class AuthenticationController {
         volunteerRepository.save(new VolunteerProfile(newUser));
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:/volunteer/profile";
+        return "redirect:/volunteer/profile/edit";
     }
 
     @GetMapping
@@ -176,7 +176,6 @@ public class AuthenticationController {
         else if (userTypeOrd == 1 || userTypeOrd == 2) {
             return "redirect:/volunteer/profile"; }
         else { return "redirect:/home"; }
-
     }
 
     @GetMapping("/logout")

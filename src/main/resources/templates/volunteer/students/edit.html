@@ -5,45 +5,51 @@
 
 <nav th:replace="fragments :: header('students')"></nav>
 
-<p> Please select the students that you would like to be in charge of: </p>
+<p class="my-3"> Please select the students that you would like to manage requests for. </p>
+<p class="my-3"> Students you already manage are shown with a check mark. Unclaimed students are unchecked.</p>
 
-<table class="table table-striped" >
+<table class="table table-striped table-responsive-md" >
     <thead>
     <tr>
-        <th>Select</th>
+        <th class="text-center" style="width:5%;">Select</th>
         <th>Student Name</th>
         <th>Address</th>
+        <th>Country</th>
     </tr>
     </thead>
     <form method="post">
         <th:block th:each="student : ${selectableStudents}">
             <tr >
                 <td th:if="${student.volunteer}">
-                    <div class="form-check float-center">
+                    <div class="form-group text-center">
                         <input type="checkbox" name="selectedStudents" th:value="${student.id}" class="form-check-input" checked>
                     </div>
                 </td>
                 <td th:unless="${student.volunteer}">
-                    <div class="form-group float-center">
+                    <div class="form-group text-center">
                         <input type="checkbox" name="selectedStudents" th:value="${student.id}" class="form-check-input">
                     </div>
                 </td>
                 <td th:text="${student.nickname} != '' ? ${student.firstName}+' '+${student.lastName}+' ('+${student.nickname}+') ' : ${student.firstName}+' '+${student.lastName}"></td>
                 <td th:text="${student.user.userAddress}"></td>
+                <td th:text="${student.country}"></td>
             </tr>
         </th:block>
         <tr>
             <td></td>
             <td>
-                <div class="form-group">
+                <div  th:if="${selectableStudents} and ${selectableStudents.size()}" class="form-group">
                     <input type="submit" value="Update" class="btn btn-success">
                 </div>
             </td>
+            <td></td>
             <td></td>
         </tr>
 
     </form>
 </table>
+
+<p class="my-3" th:unless="${selectableStudents} and ${selectableStudents.size()}">You do not have any students yet and there are no unclaimed students in the system at this time.</p>
 
 </body>
 </html>

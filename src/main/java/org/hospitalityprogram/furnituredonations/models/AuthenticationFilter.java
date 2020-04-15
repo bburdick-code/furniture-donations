@@ -58,9 +58,9 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
         if (modelAndView != null) {
             HttpSession session = request.getSession(false);
             if (session == null || session.getAttribute("user") == null ) {  // No session or no user assigned, render the Login HTML element
-                modelAndView.getModelMap().addAttribute("isLoggedIn", false);
+//                modelAndView.getModelMap().addAttribute("isLoggedIn", false);
             } else {  // A session is active, render the Logout HTML element
-                modelAndView.getModelMap().addAttribute("isLoggedIn", true);
+//                modelAndView.getModelMap().addAttribute("isLoggedIn", true);
                 Optional<User> user = userRepository.findById((int)session.getAttribute("user"));
                 switch (user.get().getUserType().ordinal()) { //Check if the user is an admin to render admin actions element
                     case 0:

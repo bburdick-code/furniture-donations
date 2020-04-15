@@ -16,7 +16,7 @@ public class LoginDTO {
     @NotNull
     @NotBlank
     // TODO: implement more stringent requirements for passwords like adding a special char, etc
-    @Size(min = 4, max = 20, message = "Invalid password. Length must be 4-20 characters")
+    @Size(min = 8, max = 20, message = "Invalid password. Length must be 8-20 characters")
     private String password;
 
 

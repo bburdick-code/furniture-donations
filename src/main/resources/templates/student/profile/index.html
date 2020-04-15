@@ -5,17 +5,9 @@
 
 <nav th:replace="fragments :: header('profile')"></nav>
 
-<p> This is where Students view their profile </p>
+<p class="my-3"><a href="/student/profile/edit" >Edit My Profile</a></p>
 
 <table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Field</th>
-        <th>Value
-            <a href="/student/profile/edit" >Edit</a>
-        </th>
-    </tr>
-    </thead>
     <tr>
         <td>Address</td>
         <td th:text="${user.userAddress}"></td>

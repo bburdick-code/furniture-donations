@@ -22,29 +22,32 @@ public class AdminItemCategoryController {
 
     @GetMapping()
     public String renderViewItemCats(Model model) {
-        model.addAttribute("title", "All Item Categories");
+        model.addAttribute("title", "Item Categories");
+        model.addAttribute(new ItemCategory());
         model.addAttribute("categories", itemCategoryRepository.findAll());
         return "volunteer/actions/itemCategory/index";
+    }
+
+    @PostMapping()
+    public String processAddItemCatForm(@ModelAttribute @Valid ItemCategory newItemCategory, Errors errors, Model model) {
+        if(errors.hasErrors()) {
+            model.addAttribute("title", "Item Categories");
+            model.addAttribute(new ItemCategory());
+            model.addAttribute("errorMsg", "Invalid category name.");
+            return "volunteer/actions/itemCategory";
+        }
+        itemCategoryRepository.save(newItemCategory);
+        return "redirect:/volunteer/actions/itemCategory";
     }
 
     @GetMapping("add")
     public String renderAddItemCatForm(Model model) {
         model.addAttribute("title", "Create Category");
-        model.addAttribute(new ItemCategory());
+
         return "volunteer/actions/itemCategory/add";
     }
 
-    @PostMapping("add")
-    public String processAddItemCatForm(@ModelAttribute @Valid ItemCategory newItemCategory, Errors errors, Model model) {
-        if(errors.hasErrors()) {
-            model.addAttribute("title", "Create Category");
-            model.addAttribute(new ItemCategory());
-            model.addAttribute("errorMsg", "Bad data!");
-            return "volunteer/actions/itemCategory/add";
-        }
-        itemCategoryRepository.save(newItemCategory);
-        return "redirect:/volunteer/actions/itemCategory";
-    }
+
 
 
 

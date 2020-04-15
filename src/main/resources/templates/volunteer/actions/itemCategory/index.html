@@ -5,8 +5,7 @@
 
 <header th:replace="fragments :: header('actions')"></header>
 
-<p th:unless="${categories} and ${categories.size()}">No Categories</p>
-<p><a href="/volunteer/actions/itemCategory/add">Add an Item Category</a></p>
+<p class="my-3">View and add item categories</p>
 
 <table class="table table-striped">
     <thead>
@@ -18,6 +17,22 @@
         <td th:text="${cat.getName()}"></td>
     </tr>
 </table>
+
+<p class="my-3" th:unless="${categories} and ${categories.size()}">No item categories yet. Please add more below.</p>
+
+<form method="post">
+    <div class="form-group">
+        <label>New Category
+            <input th:field="${itemCategory.name}" class="form-controls">
+        </label>
+        <p class="error" th:errors="${itemCategory.name}"></p>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-success">
+    </div>
+</form>
+
+<p class="my-3">[COMING SOON] Delete categories</p>
 
 </body>
 </html>

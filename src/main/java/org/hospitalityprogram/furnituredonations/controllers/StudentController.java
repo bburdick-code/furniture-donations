@@ -85,10 +85,10 @@ public class StudentController {
         return "redirect:/student/profile";
     }
 
-    @GetMapping("settings")
+    @GetMapping("resources")
     public String settings(Model model) {
         model.addAttribute("title", "Settings");
-        return "student/settings";
+        return "student/resources";
     }
 
 }

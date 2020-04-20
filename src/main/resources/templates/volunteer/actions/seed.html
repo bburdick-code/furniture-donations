@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+<header th:replace="fragments :: header('actions')"></header>
+
+<p class="my-3 error">WARNING: This deletes all data in the database and resets it with demo data.</p>
+
+<form class="my-3" method="post">
+    <input type="submit" class="btn btn-primary" value="Reset Database" />
+</form>
+
+</body>
+</html>

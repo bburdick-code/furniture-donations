@@ -88,12 +88,6 @@ public class VolunteerController {
         return "redirect:/volunteer/profile";
     }
 
-    @GetMapping("actions")
-    public String actions(Model model) {
-        model.addAttribute("title", "Admin Actions");
-        return "volunteer/actions/index";
-    }
-
     @GetMapping("settings")
     public String settings(Model model) {
         model.addAttribute("title", "Settings");

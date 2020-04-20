@@ -31,7 +31,7 @@ public class StudentProfile extends AbstractEntity {
     @OneToMany(cascade = CascadeType.ALL)
     private final List<Item> items = new ArrayList<>();
 
-    public StudentProfile(String firstName, String lastName, String nickname, String personalEmail, String country, String gender, String maritalStatus) {
+    public StudentProfile(String firstName, String lastName, String nickname, String personalEmail, String country, String gender, String maritalStatus, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickname = nickname;
@@ -39,6 +39,7 @@ public class StudentProfile extends AbstractEntity {
         this.country = country;
         this.gender = gender;
         this.maritalStatus = maritalStatus;
+        this.user = user;
     }
 
     public StudentProfile(User user) {

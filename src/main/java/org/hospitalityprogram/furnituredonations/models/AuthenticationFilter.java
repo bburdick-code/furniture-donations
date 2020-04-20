@@ -35,7 +35,7 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
             return true;
         }
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         User user = authenticationController.getUserFromSession(session);
 
         // The user is logged in
@@ -54,6 +54,10 @@ public class AuthenticationFilter extends HandlerInterceptorAdapter {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         super.postHandle(request, response, handler, modelAndView);
+
+        if (request.getRequestURI().equals("/logout")) {
+            return;
+        }
 
         if (modelAndView != null) {
             HttpSession session = request.getSession(false);
